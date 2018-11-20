@@ -148,8 +148,11 @@ public class CreateModel
                 //getLog().error("Error converting ", e);
             }
         }
-        getLog().info(String.format("Converted %d/%d files", succeed, results.size()));
-        getLog().info(String.format("Failed %d/%d files", failed, results.size()));
+        long s = results.size();
+        double ps = Math.round((100.0 * succeed/s) * 100.0) / 100.0;
+        double pf = Math.round((100.0 * failed/s) * 100.0) / 100.0;
+        getLog().info(String.format("Converted %d/%d (%.2f%%) files", succeed, s, ps));
+        getLog().info(String.format("Failed %d/%d (%.2f%%)files", failed,  s, pf));
     }
 
     private void setDefaultInput() {
@@ -174,7 +177,7 @@ public class CreateModel
 
         public TaskResult call() throws Exception {
             ProcessFile pf = new ProcessFile(input, basedir);
-            getLog().debug("FINISH CORRECTLY : " + input);
+            //getLog().debug("FINISH CORRECTLY : " + input);
             return new TaskResult(input, pf.getOutputFiles());
         }
     }

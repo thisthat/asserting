@@ -140,7 +140,7 @@ public class Java2AST {
 		File file1 = new File(this.filename);
 		String source = readFileToString(file1, "utf-8");
 
-		parserJDT = ASTParser.newParser(AST.JLS10);  // handles JDK 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8
+		parserJDT = ASTParser.newParser(AST.JLS8);  // handles JDK 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8
 		parserJDT.setKind(ASTParser.K_COMPILATION_UNIT);
 		Map<String, String> options = JavaCore.getOptions();
 		JavaCore.setComplianceOptions(JavaCore.VERSION_1_8, options);
