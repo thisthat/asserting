@@ -1,7 +1,7 @@
 package at.aau.intermediateModel.structure;
 
-import intermediateModel.interfaces.*;
-import intermediateModel.types.definition.TimeType;
+import at.aau.intermediateModel.interfaces.*;
+import at.aau.intermediateModel.types.definition.TimeType;
 
 /**
  * @author Giovanni Liva (@thisthatDC)

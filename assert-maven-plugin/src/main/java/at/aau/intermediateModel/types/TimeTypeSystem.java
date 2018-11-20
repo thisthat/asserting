@@ -1,17 +1,16 @@
 package at.aau.intermediateModel.types;
 
-import debugger.Debugger;
-import intermediateModel.structure.ASTClass;
-import intermediateModel.structure.ASTRE;
-import intermediateModel.types.definition.TimeType;
-import intermediateModel.types.rules.TypeResolver;
-import intermediateModel.types.rules.exception.TimeTypeError;
-import intermediateModel.types.rules.exception.TimeTypeRecommendation;
-import intermediateModel.types.rules.exception.TimeTypeWarning;
-import intermediateModel.visitors.ApplyHeuristics;
-import intermediateModel.visitors.interfaces.ParseIM;
-import intermediateModelHelper.envirorment.Env;
-import intermediateModelHelper.heuristic.v2.*;
+import at.aau.intermediateModel.structure.ASTClass;
+import at.aau.intermediateModel.structure.ASTRE;
+import at.aau.intermediateModel.types.definition.TimeType;
+import at.aau.intermediateModel.types.rules.TypeResolver;
+import at.aau.intermediateModel.types.rules.exception.TimeTypeError;
+import at.aau.intermediateModel.types.rules.exception.TimeTypeRecommendation;
+import at.aau.intermediateModel.types.rules.exception.TimeTypeWarning;
+import at.aau.intermediateModel.visitors.ApplyHeuristics;
+import at.aau.intermediateModel.visitors.interfaces.ParseIM;
+import at.aau.intermediateModelHelper.envirorment.Env;
+import at.aau.intermediateModelHelper.heuristic.v2.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +65,6 @@ public class TimeTypeSystem extends ParseIM  {
         }
         try {
             TimeType t = TypeResolver.resolveTimerType(r.getExpression(), env);
-            Debugger.getInstance(false).log("Line " + r.getLine() + " : " + t);
         } catch (TimeTypeRecommendation error){
             // catch the error and enhance it. Then store.
             recommendation.add(new TimeTypeRecommendation(super.getLastClass(), super._class.getPath(), error));

@@ -1,6 +1,6 @@
 package at.aau.intermediateModel.types.rules.exception;
 
-import intermediateModel.structure.expression.ASTBinary;
+import at.aau.intermediateModel.structure.expression.ASTBinary;
 
 import java.util.Objects;
 

@@ -1,17 +1,17 @@
 package at.aau.intermediateModel.visitors.creation;
 
-import intermediateModel.interfaces.IASTHasStms;
-import intermediateModel.interfaces.IASTMethod;
-import intermediateModel.interfaces.IASTRE;
-import intermediateModel.structure.*;
-import intermediateModel.structure.expression.*;
-import intermediateModel.visitors.DefualtASTREVisitor;
-import intermediateModel.visitors.creation.filter.Filter;
-import intermediateModel.visitors.creation.utility.Getter;
+import at.aau.intermediateModel.interfaces.IASTHasStms;
+import at.aau.intermediateModel.interfaces.IASTMethod;
+import at.aau.intermediateModel.interfaces.IASTRE;
+import at.aau.intermediateModel.structure.*;
+import at.aau.intermediateModel.structure.expression.*;
+import at.aau.intermediateModel.visitors.DefualtASTREVisitor;
+import at.aau.intermediateModel.visitors.creation.filter.Filter;
+import at.aau.intermediateModel.visitors.creation.utility.Getter;
 import org.eclipse.jdt.core.dom.*;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
-import parser.Java2AST;
-import parser.UnparsableException;
+import at.aau.parser.Java2AST;
+import at.aau.parser.UnparsableException;
 
 import java.io.IOException;
 import java.util.*;

@@ -1,7 +1,7 @@
 package at.aau.intermediateModel.interfaces;
 
-import intermediateModel.structure.ASTRE;
-import intermediateModel.types.definition.TimeType;
+import at.aau.intermediateModel.structure.ASTRE;
+import at.aau.intermediateModel.types.definition.TimeType;
 
 /**
  * @author Giovanni Liva (@thisthatDC)

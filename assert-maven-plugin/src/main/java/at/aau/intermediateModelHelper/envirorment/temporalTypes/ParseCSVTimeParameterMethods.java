@@ -1,10 +1,10 @@
 package at.aau.intermediateModelHelper.envirorment.temporalTypes;
 
-import intermediateModel.types.definition.Duration;
-import intermediateModel.types.definition.TimeType;
-import intermediateModel.types.definition.Timestamp;
-import intermediateModelHelper.envirorment.temporal.ParseCSV;
-import intermediateModelHelper.envirorment.temporalTypes.structure.TimeParameterMethod;
+import at.aau.intermediateModel.types.definition.Duration;
+import at.aau.intermediateModel.types.definition.TimeType;
+import at.aau.intermediateModel.types.definition.Timestamp;
+import at.aau.intermediateModelHelper.envirorment.temporal.ParseCSV;
+import at.aau.intermediateModelHelper.envirorment.temporalTypes.structure.TimeParameterMethod;
 
 import java.io.*;
 import java.util.ArrayList;

@@ -1,8 +1,8 @@
 package at.aau.intermediateModel.visitors.interfaces;
 
-import intermediateModel.interfaces.IASTRE;
-import intermediateModel.structure.expression.*;
-import intermediateModelHelper.envirorment.Env;
+import at.aau.intermediateModel.interfaces.IASTRE;
+import at.aau.intermediateModel.structure.expression.*;
+import at.aau.intermediateModelHelper.envirorment.Env;
 
 /**
  * @author Giovanni Liva (@thisthatDC)

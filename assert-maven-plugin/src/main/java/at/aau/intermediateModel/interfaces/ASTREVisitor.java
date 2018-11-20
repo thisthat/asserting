@@ -1,7 +1,7 @@
 package at.aau.intermediateModel.interfaces;
 
 
-import intermediateModel.structure.expression.*;
+import at.aau.intermediateModel.structure.expression.*;
 
 /**
  * @author Giovanni Liva (@thisthatDC)

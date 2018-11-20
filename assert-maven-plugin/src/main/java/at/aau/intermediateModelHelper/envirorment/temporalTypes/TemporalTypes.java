@@ -1,15 +1,15 @@
 package at.aau.intermediateModelHelper.envirorment.temporalTypes;
 
 
-import intermediateModel.structure.expression.ASTMethodCall;
-import intermediateModel.types.definition.Duration;
-import intermediateModel.types.definition.TimeType;
-import intermediateModel.types.definition.Timestamp;
-import intermediateModelHelper.Config;
-import intermediateModelHelper.envirorment.temporal.TemporalInfo;
-import intermediateModelHelper.envirorment.temporal.structure.TimeTypes;
-import intermediateModelHelper.envirorment.temporalTypes.structure.TimeMethod;
-import intermediateModelHelper.envirorment.temporalTypes.structure.TimeParameterMethod;
+import at.aau.intermediateModel.structure.expression.ASTMethodCall;
+import at.aau.intermediateModel.types.definition.Duration;
+import at.aau.intermediateModel.types.definition.TimeType;
+import at.aau.intermediateModel.types.definition.Timestamp;
+import at.aau.intermediateModelHelper.Config;
+import at.aau.intermediateModelHelper.envirorment.temporal.TemporalInfo;
+import at.aau.intermediateModelHelper.envirorment.temporal.structure.TimeTypes;
+import at.aau.intermediateModelHelper.envirorment.temporalTypes.structure.TimeMethod;
+import at.aau.intermediateModelHelper.envirorment.temporalTypes.structure.TimeParameterMethod;
 
 import java.io.File;
 import java.util.ArrayList;

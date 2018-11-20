@@ -1,8 +1,8 @@
 package at.aau.intermediateModel.interfaces;
 
 
-import intermediateModelHelper.envirorment.temporal.structure.Constraint;
-import parser.ASTSrc;
+import at.aau.intermediateModelHelper.envirorment.temporal.structure.Constraint;
+import at.aau.parser.ASTSrc;
 
 import java.util.Arrays;
 

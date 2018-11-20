@@ -1,19 +1,19 @@
 package at.aau.intermediateModelHelper.envirorment.temporal;
 
-import intermediateModel.interfaces.IASTMethod;
-import intermediateModel.interfaces.IASTVar;
-import intermediateModel.structure.*;
-import intermediateModel.types.definition.Duration;
-import intermediateModel.types.definition.TimeType;
-import intermediateModel.types.definition.Timestamp;
-import intermediateModel.types.definition.Unknown;
-import intermediateModel.types.rules.TypeResolver;
-import intermediateModel.visitors.ExtractTimeAttribute;
-import intermediateModel.visitors.interfaces.ParseIM;
-import intermediateModelHelper.CheckExpression;
-import intermediateModelHelper.envirorment.Env;
-import intermediateModelHelper.envirorment.temporal.structure.TimeTypes;
-import intermediateModelHelper.envirorment.temporalTypes.TemporalTypes;
+import at.aau.intermediateModel.interfaces.IASTMethod;
+import at.aau.intermediateModel.interfaces.IASTVar;
+import at.aau.intermediateModel.structure.*;
+import at.aau.intermediateModel.types.definition.Duration;
+import at.aau.intermediateModel.types.definition.TimeType;
+import at.aau.intermediateModel.types.definition.Timestamp;
+import at.aau.intermediateModel.types.definition.Unknown;
+import at.aau.intermediateModel.types.rules.TypeResolver;
+import at.aau.intermediateModel.visitors.ExtractTimeAttribute;
+import at.aau.intermediateModel.visitors.interfaces.ParseIM;
+import at.aau.intermediateModelHelper.CheckExpression;
+import at.aau.intermediateModelHelper.envirorment.Env;
+import at.aau.intermediateModelHelper.envirorment.temporal.structure.TimeTypes;
+import at.aau.intermediateModelHelper.envirorment.temporalTypes.TemporalTypes;
 
 import java.io.BufferedWriter;
 import java.io.File;

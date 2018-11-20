@@ -1,15 +1,15 @@
 package at.aau.intermediateModelHelper;
 
 
-import intermediateModel.interfaces.IASTRE;
-import intermediateModel.interfaces.IASTVar;
-import intermediateModel.structure.ASTRE;
-import intermediateModel.structure.ASTVariable;
-import intermediateModel.structure.expression.*;
-import intermediateModel.visitors.DefualtASTREVisitor;
-import intermediateModelHelper.envirorment.Env;
-import intermediateModelHelper.envirorment.temporal.TemporalInfo;
-import intermediateModelHelper.envirorment.temporal.structure.TimeMethod;
+import at.aau.intermediateModel.interfaces.IASTRE;
+import at.aau.intermediateModel.interfaces.IASTVar;
+import at.aau.intermediateModel.structure.ASTRE;
+import at.aau.intermediateModel.structure.ASTVariable;
+import at.aau.intermediateModel.structure.expression.*;
+import at.aau.intermediateModel.visitors.DefualtASTREVisitor;
+import at.aau.intermediateModelHelper.envirorment.Env;
+import at.aau.intermediateModelHelper.envirorment.temporal.TemporalInfo;
+import at.aau.intermediateModelHelper.envirorment.temporal.structure.TimeMethod;
 
 import java.util.ArrayList;
 import java.util.List;

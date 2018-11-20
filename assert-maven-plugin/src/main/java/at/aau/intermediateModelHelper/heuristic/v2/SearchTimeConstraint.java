@@ -1,11 +1,10 @@
-package at.aau.intermediateModelHelper.heuristic.definition;
+package at.aau.intermediateModelHelper.heuristic.v2;
 
-import intermediateModel.interfaces.IASTMethod;
-import intermediateModel.interfaces.IASTStm;
-import intermediateModel.structure.*;
-import intermediateModelHelper.envirorment.Env;
-import intermediateModelHelper.envirorment.temporal.structure.Constraint;
-import org.javatuples.Triplet;
+import at.aau.intermediateModel.interfaces.IASTMethod;
+import at.aau.intermediateModel.interfaces.IASTStm;
+import at.aau.intermediateModel.structure.*;
+import at.aau.intermediateModelHelper.envirorment.Env;
+import at.aau.intermediateModelHelper.envirorment.temporal.structure.Constraint;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,7 +22,7 @@ import java.util.List;
 public abstract class SearchTimeConstraint {
 
 	/**
-	 * Stores the list of {@link Triplet} of time instruction the server.heuristic found.
+	 * Stores the list time instruction the server.heuristic found.
 	 * It saves:
 	 * <ul>
 	 *     <li>Message</li>

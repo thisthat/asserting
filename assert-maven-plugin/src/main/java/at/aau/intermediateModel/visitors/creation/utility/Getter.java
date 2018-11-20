@@ -1,6 +1,6 @@
 package at.aau.intermediateModel.visitors.creation.utility;
 
-import intermediateModel.structure.ASTClass;
+import at.aau.intermediateModel.structure.ASTClass;
 
 /**
  * @author Giovanni Liva (@thisthatDC)

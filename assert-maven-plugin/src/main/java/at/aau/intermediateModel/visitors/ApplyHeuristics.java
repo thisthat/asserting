@@ -1,20 +1,20 @@
 package at.aau.intermediateModel.visitors;
 
 
-import intermediateModel.interfaces.IASTMethod;
-import intermediateModel.interfaces.IASTRE;
-import intermediateModel.interfaces.IASTStm;
-import intermediateModel.interfaces.IASTVar;
-import intermediateModel.structure.*;
-import intermediateModel.structure.expression.ASTIdentifier;
-import intermediateModel.structure.expression.ASTLiteral;
-import intermediateModel.structure.expression.ASTVariableDeclaration;
-import intermediateModel.visitors.interfaces.ParseIM;
-import intermediateModelHelper.CheckExpression;
-import intermediateModelHelper.envirorment.BuildEnvironment;
-import intermediateModelHelper.envirorment.Env;
-import intermediateModelHelper.envirorment.temporal.structure.Constraint;
-import intermediateModelHelper.heuristic.definition.*;
+import at.aau.intermediateModel.interfaces.IASTMethod;
+import at.aau.intermediateModel.interfaces.IASTRE;
+import at.aau.intermediateModel.interfaces.IASTStm;
+import at.aau.intermediateModel.interfaces.IASTVar;
+import at.aau.intermediateModel.structure.*;
+import at.aau.intermediateModel.structure.expression.ASTIdentifier;
+import at.aau.intermediateModel.structure.expression.ASTLiteral;
+import at.aau.intermediateModel.structure.expression.ASTVariableDeclaration;
+import at.aau.intermediateModel.visitors.interfaces.ParseIM;
+import at.aau.intermediateModelHelper.CheckExpression;
+import at.aau.intermediateModelHelper.envirorment.BuildEnvironment;
+import at.aau.intermediateModelHelper.envirorment.Env;
+import at.aau.intermediateModelHelper.envirorment.temporal.structure.Constraint;
+import at.aau.intermediateModelHelper.heuristic.v2.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,7 +36,7 @@ public class ApplyHeuristics extends ParseIM {
 	protected List<SearchTimeConstraint> strategies = new ArrayList<>();
 	protected List<Class<? extends SearchTimeConstraint>> strategiesTypes = new ArrayList<>();
 
-	HashMap<ASTClass,List<ASTRE>> timeAttrs = new HashMap();
+	HashMap<ASTClass,List<ASTRE>> timeAttrs = new HashMap<>();
 	public ApplyHeuristics(){
 		build_base_env = BuildEnvironment.getInstance();
 	}
@@ -48,47 +48,17 @@ public class ApplyHeuristics extends ParseIM {
 		return timeAttrs;
 	}
 
-	/**
-	 * The following method simplify the usage of the current class.
-	 * It gets, with a set of predefined heuristics, the time constraints of the given class.
-	 * In particular, the list of heuristics that it uses are:
-	 * <ul>
-	 *     <li>{@link SetTimeout}</li>
-	 *     <li>{@link TimeoutResources}</li>
-	 *     <li>{@link TimeInSignature}</li>
-	 * </ul>
-	 * @param c	Class to analyze
-	 * @return	List of time constraints with the predefined set of heuristics
-	 */
-	@Deprecated
-	public static List<Constraint> getConstraint(ASTClass c){
-		//return new ArrayList<>();
-
-		ApplyHeuristics ah = new ApplyHeuristics();
-		ah.set__DEBUG__(false);
-		//ah.subscribe(ThreadTime.class);
-		//ah.subscribe(SocketTimeout.class);
-		ah.subscribe(TimeoutResources.class);
-		ah.subscribe(UndefiniteTimeout.class);
-		//ah.subscribe(TimerType.class);
-		ah.subscribe(TimeInSignature.class);
-		ah.subscribe(SetTimeout.class);
-		ah.subscribe(AssignmentTimeVar.class);
-		ah.analyze(c);
-		return ah.getTimeConstraint();
-	}
-
 	public static List<Constraint> getConstraintV2(ASTClass c){
 		//return new ArrayList<>();
 		ApplyHeuristics ah = new ApplyHeuristics();
 		ah.set__DEBUG__(false);
-		ah.subscribe(intermediateModelHelper.heuristic.v2.MarkTime.class);
-		ah.subscribe(intermediateModelHelper.heuristic.v2.TimeInSignature.class);
-		ah.subscribe(intermediateModelHelper.heuristic.v2.AssignmentTimeVar.class);
-		ah.subscribe(intermediateModelHelper.heuristic.v2.BooleanExpression.class);
-		ah.subscribe(intermediateModelHelper.heuristic.v2.MinMaxSearch.class);
-		ah.subscribe(intermediateModelHelper.heuristic.v2.ReturnExpression.class);
-		ah.subscribe(intermediateModelHelper.heuristic.v2.AddTimeVarToTimeExpression.class);
+		ah.subscribe(MarkTime.class);
+		ah.subscribe(TimeInSignature.class);
+		ah.subscribe(AssignmentTimeVar.class);
+		ah.subscribe(BooleanExpression.class);
+		ah.subscribe(MinMaxSearch.class);
+		ah.subscribe(ReturnExpression.class);
+		ah.subscribe(AddTimeVarToTimeExpression.class);
 		ah.analyze(c);
 		return ah.getTimeConstraint();
 	}

@@ -1,20 +1,19 @@
 package at.aau.intermediateModel.types;
 
-import debugger.Debugger;
-import intermediateModel.interfaces.IASTVar;
-import intermediateModel.structure.ASTClass;
-import intermediateModel.structure.ASTRE;
-import intermediateModel.types.definition.Duration;
-import intermediateModel.types.definition.TimeType;
-import intermediateModel.types.definition.Unknown;
-import intermediateModel.types.rules.TypeResolver;
-import intermediateModel.types.rules.exception.TimeTypeError;
-import intermediateModel.types.rules.exception.TimeTypeRecommendation;
-import intermediateModel.types.rules.exception.TimeTypeWarning;
-import intermediateModel.visitors.ApplyHeuristics;
-import intermediateModel.visitors.interfaces.ParseIM;
-import intermediateModelHelper.envirorment.Env;
-import intermediateModelHelper.heuristic.v2.*;
+import at.aau.intermediateModel.interfaces.IASTVar;
+import at.aau.intermediateModel.structure.ASTClass;
+import at.aau.intermediateModel.structure.ASTRE;
+import at.aau.intermediateModel.types.definition.Duration;
+import at.aau.intermediateModel.types.definition.TimeType;
+import at.aau.intermediateModel.types.definition.Unknown;
+import at.aau.intermediateModel.types.rules.TypeResolver;
+import at.aau.intermediateModel.types.rules.exception.TimeTypeError;
+import at.aau.intermediateModel.types.rules.exception.TimeTypeRecommendation;
+import at.aau.intermediateModel.types.rules.exception.TimeTypeWarning;
+import at.aau.intermediateModel.visitors.ApplyHeuristics;
+import at.aau.intermediateModel.visitors.interfaces.ParseIM;
+import at.aau.intermediateModelHelper.envirorment.Env;
+import at.aau.intermediateModelHelper.heuristic.v2.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,10 +50,6 @@ public class CountUnknown extends ParseIM  {
     List<String> typedDuration = new ArrayList<>();
     List<String> typedTimestamp = new ArrayList<>();
     List<String> untyped = new ArrayList<>();
-
-    public CountUnknown() {
-        Debugger.isActive = false;
-    }
 
     public CountUnknown(ASTClass _class) {
         super(_class);

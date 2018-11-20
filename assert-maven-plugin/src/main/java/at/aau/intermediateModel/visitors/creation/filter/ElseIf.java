@@ -1,12 +1,12 @@
 package at.aau.intermediateModel.visitors.creation.filter;
 
-import intermediateModel.interfaces.IASTMethod;
-import intermediateModel.structure.ASTClass;
-import intermediateModel.structure.ASTConstructor;
-import intermediateModel.structure.ASTIf;
-import intermediateModel.structure.ASTMethod;
-import intermediateModel.visitors.DefaultASTVisitor;
-import intermediateModelHelper.Config;
+import at.aau.intermediateModel.interfaces.IASTMethod;
+import at.aau.intermediateModel.structure.ASTClass;
+import at.aau.intermediateModel.structure.ASTConstructor;
+import at.aau.intermediateModel.structure.ASTIf;
+import at.aau.intermediateModel.structure.ASTMethod;
+import at.aau.intermediateModel.visitors.DefaultASTVisitor;
+import at.aau.intermediateModelHelper.Config;
 
 import java.util.ArrayList;
 import java.util.List;

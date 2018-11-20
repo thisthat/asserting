@@ -1,11 +1,9 @@
 package at.aau.intermediateModel.structure;
 
-import intermediateModel.interfaces.*;
-import intermediateModel.structure.expression.ASTVariableDeclaration;
-import intermediateModel.visitors.DefaultASTVisitor;
-import intermediateModelHelper.envirorment.Env;
-import intermediateModelHelper.types.DataTreeType;
-import org.javatuples.Pair;
+import at.aau.intermediateModel.interfaces.*;
+import at.aau.intermediateModel.structure.expression.ASTVariableDeclaration;
+import at.aau.intermediateModel.visitors.DefaultASTVisitor;
+import at.aau.intermediateModelHelper.envirorment.Env;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -173,24 +171,6 @@ public class ASTMethod extends IASTStm implements IASTMethod, IASTHasStms, IASTV
 		List<ASTVariable> pars = c.getParameters();
 		for(int i = 0; i < this.parameters.size(); i++){
 			if(!pars.get(i).getType().equals(this.parameters.get(i).getType())){
-				flag = false;
-			}
-		}
-		return flag;
-	}
-
-	@Override
-	public boolean equalsBySignature(String pkg, String name, List<Pair<String, String>> signature) {
-		if(!name.equals(this.name)) return false;
-		if(signature.size() != this.parameters.size()) return false;
-		boolean flag = true;
-		for(int i = 0; i < this.parameters.size(); i++){
-			if(signature.get(i) == null || signature.get(i).getValue0() == null){
-				return false;
-			}
-			String t1 = this.parameters.get(i).getType();
-			String t2 = signature.get(i).getValue0();
-			if(!DataTreeType.checkEqualsTypes(t1,t2, pkg , signature.get(i).getValue1() )){
 				flag = false;
 			}
 		}

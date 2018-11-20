@@ -1,6 +1,6 @@
 package at.aau.intermediateModelHelper.envirorment.temporalTypes.structure;
 
-import intermediateModel.structure.expression.ASTMethodCall;
+import at.aau.intermediateModel.structure.expression.ASTMethodCall;
 
 import java.util.List;
 

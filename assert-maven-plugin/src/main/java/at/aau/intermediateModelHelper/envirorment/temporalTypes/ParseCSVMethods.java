@@ -1,7 +1,7 @@
 package at.aau.intermediateModelHelper.envirorment.temporalTypes;
 
-import intermediateModelHelper.envirorment.temporal.ParseCSV;
-import intermediateModelHelper.envirorment.temporalTypes.structure.TimeMethod;
+import at.aau.intermediateModelHelper.envirorment.temporal.ParseCSV;
+import at.aau.intermediateModelHelper.envirorment.temporalTypes.structure.TimeMethod;
 
 import java.io.File;
 import java.io.InputStream;

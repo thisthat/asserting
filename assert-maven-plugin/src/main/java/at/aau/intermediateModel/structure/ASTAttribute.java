@@ -1,10 +1,10 @@
 package at.aau.intermediateModel.structure;
 
-import intermediateModel.interfaces.ASTVisitor;
-import intermediateModel.interfaces.IASTStm;
-import intermediateModel.interfaces.IASTVar;
-import intermediateModel.interfaces.IASTVisitor;
-import intermediateModel.types.definition.TimeType;
+import at.aau.intermediateModel.interfaces.ASTVisitor;
+import at.aau.intermediateModel.interfaces.IASTStm;
+import at.aau.intermediateModel.interfaces.IASTVar;
+import at.aau.intermediateModel.interfaces.IASTVisitor;
+import at.aau.intermediateModel.types.definition.TimeType;
 
 /**
  * @author Giovanni Liva (@thisthatDC)

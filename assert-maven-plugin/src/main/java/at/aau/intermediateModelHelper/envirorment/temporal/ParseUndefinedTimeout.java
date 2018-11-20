@@ -1,6 +1,6 @@
 package at.aau.intermediateModelHelper.envirorment.temporal;
 
-import intermediateModelHelper.envirorment.temporal.structure.TimeUndefinedTimeout;
+import at.aau.intermediateModelHelper.envirorment.temporal.structure.TimeUndefinedTimeout;
 
 import java.io.File;
 import java.io.InputStream;

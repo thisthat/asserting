@@ -1,13 +1,13 @@
 package at.aau.intermediateModel.structure;
 
-import intermediateModel.interfaces.*;
-import intermediateModel.structure.expression.ASTBinary;
-import intermediateModel.structure.expression.ASTIdentifier;
-import intermediateModel.structure.expression.ASTMethodCall;
-import intermediateModel.structure.expression.ASTVariableDeclaration;
-import intermediateModel.visitors.DefaultASTVisitor;
-import intermediateModel.visitors.DefualtASTREVisitor;
-import intermediateModelHelper.envirorment.Env;
+import at.aau.intermediateModel.interfaces.*;
+import at.aau.intermediateModel.structure.expression.ASTBinary;
+import at.aau.intermediateModel.structure.expression.ASTIdentifier;
+import at.aau.intermediateModel.structure.expression.ASTMethodCall;
+import at.aau.intermediateModel.structure.expression.ASTVariableDeclaration;
+import at.aau.intermediateModel.visitors.DefaultASTVisitor;
+import at.aau.intermediateModel.visitors.DefualtASTREVisitor;
+import at.aau.intermediateModelHelper.envirorment.Env;
 
 import java.util.ArrayList;
 import java.util.List;

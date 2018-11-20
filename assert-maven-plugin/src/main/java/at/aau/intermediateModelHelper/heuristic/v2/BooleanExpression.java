@@ -1,12 +1,11 @@
 package at.aau.intermediateModelHelper.heuristic.v2;
 
-import intermediateModel.interfaces.IASTRE;
-import intermediateModel.interfaces.IASTStm;
-import intermediateModel.structure.ASTMethod;
-import intermediateModel.structure.ASTRE;
-import intermediateModelHelper.CheckExpression;
-import intermediateModelHelper.envirorment.Env;
-import intermediateModelHelper.heuristic.definition.SearchTimeConstraint;
+import at.aau.intermediateModel.interfaces.IASTRE;
+import at.aau.intermediateModel.interfaces.IASTStm;
+import at.aau.intermediateModel.structure.ASTMethod;
+import at.aau.intermediateModel.structure.ASTRE;
+import at.aau.intermediateModelHelper.CheckExpression;
+import at.aau.intermediateModelHelper.envirorment.Env;
 
 
 /**

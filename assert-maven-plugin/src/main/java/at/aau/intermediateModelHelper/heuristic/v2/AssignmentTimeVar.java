@@ -1,14 +1,13 @@
 package at.aau.intermediateModelHelper.heuristic.v2;
 
-import intermediateModel.interfaces.IASTRE;
-import intermediateModel.interfaces.IASTStm;
-import intermediateModel.interfaces.IASTVar;
-import intermediateModel.structure.ASTRE;
-import intermediateModel.structure.expression.*;
-import intermediateModel.visitors.DefaultASTVisitor;
-import intermediateModel.visitors.DefualtASTREVisitor;
-import intermediateModelHelper.envirorment.Env;
-import intermediateModelHelper.heuristic.definition.SearchTimeConstraint;
+import at.aau.intermediateModel.interfaces.IASTRE;
+import at.aau.intermediateModel.interfaces.IASTStm;
+import at.aau.intermediateModel.interfaces.IASTVar;
+import at.aau.intermediateModel.structure.ASTRE;
+import at.aau.intermediateModel.structure.expression.*;
+import at.aau.intermediateModel.visitors.DefaultASTVisitor;
+import at.aau.intermediateModel.visitors.DefualtASTREVisitor;
+import at.aau.intermediateModelHelper.envirorment.Env;
 
 
 /**

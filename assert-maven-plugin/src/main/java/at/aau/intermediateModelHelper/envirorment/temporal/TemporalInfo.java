@@ -1,7 +1,7 @@
 package at.aau.intermediateModelHelper.envirorment.temporal;
 
-import intermediateModelHelper.envirorment.temporal.structure.*;
-import intermediateModelHelper.envirorment.temporalTypes.structure.TimeParameterMethod;
+import at.aau.intermediateModelHelper.envirorment.temporal.structure.*;
+import at.aau.intermediateModelHelper.envirorment.temporalTypes.structure.TimeParameterMethod;
 
 import java.util.List;
 

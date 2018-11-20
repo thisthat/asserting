@@ -1,9 +1,9 @@
 package at.aau.intermediateModel.metrics;
 
-import intermediateModel.interfaces.IASTMethod;
-import intermediateModel.structure.*;
-import intermediateModel.structure.expression.ASTIdentifier;
-import intermediateModel.visitors.DefaultASTVisitor;
+import at.aau.intermediateModel.interfaces.IASTMethod;
+import at.aau.intermediateModel.structure.*;
+import at.aau.intermediateModel.structure.expression.ASTIdentifier;
+import at.aau.intermediateModel.visitors.DefaultASTVisitor;
 
 import java.util.ArrayList;
 import java.util.List;

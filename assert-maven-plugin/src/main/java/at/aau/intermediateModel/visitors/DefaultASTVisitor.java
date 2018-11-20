@@ -1,8 +1,8 @@
 package at.aau.intermediateModel.visitors;
 
-import intermediateModel.interfaces.ASTVisitor;
-import intermediateModel.interfaces.IASTStm;
-import intermediateModel.structure.*;
+import at.aau.intermediateModel.interfaces.ASTVisitor;
+import at.aau.intermediateModel.interfaces.IASTStm;
+import at.aau.intermediateModel.structure.*;
 
 /**
  * @author Giovanni Liva (@thisthatDC)

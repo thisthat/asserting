@@ -1,8 +1,8 @@
 package at.aau.intermediateModel.structure;
 
-import intermediateModel.interfaces.ASTVisitor;
-import intermediateModel.interfaces.IASTMethod;
-import intermediateModel.interfaces.IASTVisitor;
+import at.aau.intermediateModel.interfaces.ASTVisitor;
+import at.aau.intermediateModel.interfaces.IASTMethod;
+import at.aau.intermediateModel.interfaces.IASTVisitor;
 
 import java.util.ArrayList;
 

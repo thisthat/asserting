@@ -1,6 +1,6 @@
 package at.aau.intermediateModelHelper.envirorment.temporal;
 
-import intermediateModelHelper.envirorment.temporal.structure.TimeMethod;
+import at.aau.intermediateModelHelper.envirorment.temporal.structure.TimeMethod;
 
 import java.io.*;
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
 package at.aau.intermediateModel.structure;
 
-import intermediateModel.interfaces.ASTVisitor;
-import intermediateModel.interfaces.IASTVisitor;
+import at.aau.intermediateModel.interfaces.ASTVisitor;
+import at.aau.intermediateModel.interfaces.IASTVisitor;
 
 import java.util.List;
 

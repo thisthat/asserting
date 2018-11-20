@@ -1,7 +1,7 @@
 package at.aau.intermediateModelHelper.envirorment.temporal.structure;
 
-import intermediateModel.structure.expression.ASTMethodCall;
-import intermediateModel.types.definition.TimeType;
+import at.aau.intermediateModel.structure.expression.ASTMethodCall;
+import at.aau.intermediateModel.types.definition.TimeType;
 
 import java.util.Arrays;
 import java.util.List;

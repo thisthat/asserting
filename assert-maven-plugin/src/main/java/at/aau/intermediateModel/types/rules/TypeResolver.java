@@ -1,20 +1,20 @@
 package at.aau.intermediateModel.types.rules;
 
-import debugger.Debugger;
-import intermediateModel.interfaces.IASTRE;
-import intermediateModel.interfaces.IASTVar;
-import intermediateModel.structure.expression.*;
-import intermediateModel.types.definition.Duration;
-import intermediateModel.types.definition.TimeType;
-import intermediateModel.types.definition.Timestamp;
-import intermediateModel.types.definition.Unknown;
-import intermediateModel.types.rules.exception.TimeException;
-import intermediateModel.types.rules.exception.TimeTypeError;
-import intermediateModel.types.rules.exception.TimeTypeRecommendation;
-import intermediateModel.types.rules.exception.TimeTypeWarning;
-import intermediateModel.visitors.DefualtASTREVisitor;
-import intermediateModelHelper.envirorment.Env;
-import intermediateModelHelper.envirorment.temporalTypes.TemporalTypes;
+
+import at.aau.intermediateModel.interfaces.IASTRE;
+import at.aau.intermediateModel.interfaces.IASTVar;
+import at.aau.intermediateModel.structure.expression.*;
+import at.aau.intermediateModel.types.definition.Duration;
+import at.aau.intermediateModel.types.definition.TimeType;
+import at.aau.intermediateModel.types.definition.Timestamp;
+import at.aau.intermediateModel.types.definition.Unknown;
+import at.aau.intermediateModel.types.rules.exception.TimeException;
+import at.aau.intermediateModel.types.rules.exception.TimeTypeError;
+import at.aau.intermediateModel.types.rules.exception.TimeTypeRecommendation;
+import at.aau.intermediateModel.types.rules.exception.TimeTypeWarning;
+import at.aau.intermediateModel.visitors.DefualtASTREVisitor;
+import at.aau.intermediateModelHelper.envirorment.Env;
+import at.aau.intermediateModelHelper.envirorment.temporalTypes.TemporalTypes;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,12 +23,9 @@ import java.util.stream.Collectors;
 
 public class TypeResolver {
 
-    static Debugger log = Debugger.getInstance(false);
 
     public static TimeType resolveTimerType(IASTRE exp, Env e) throws TimeException {
         IASTRE expr = prepare(exp);
-        log.log("Analysing line: " + expr.getLine());
-        log.log("Analysing: " + expr.print());
         if (expr.isTimeCritical() || (expr instanceof ASTMethodCall && ((ASTMethodCall) expr).isTimeCall()) ||
                 (expr instanceof ASTUnary && ((ASTUnary) expr).getExpr().isTimeCritical())
                 )
@@ -257,7 +254,6 @@ public class TypeResolver {
         }
         TimeType t = v.getVarTimeType();
         if (t == null) {
-            log.log(String.format("Variable %s @%d unknown time type", v.getName(), expr.getLine()));
             TimeType tvar = new Unknown();
             v.setVarTimeType(tvar);
             return tvar;
@@ -398,8 +394,7 @@ public class TypeResolver {
     }
 
     private static void setVariableUnknown(IASTRE right, Env e, TimeType t) {
-        log.log(String.format("Resolving Unknown @%d with %s", right.getLine(), t));
-        right.visit(new DefualtASTREVisitor() {
+       right.visit(new DefualtASTREVisitor() {
             @Override
             public void enterASTIdentifier(ASTIdentifier elm) {
                 IASTVar v = e.getVar(elm.getValue());
@@ -407,7 +402,6 @@ public class TypeResolver {
                     TimeType type = v.getVarTimeType();
                     if (type == null || type instanceof Unknown) {
                         v.setVarTimeType(t);
-                        log.log("\t" + elm.getValue() + " has type " + t);
                     }
                 }
             }
@@ -443,7 +437,6 @@ public class TypeResolver {
         if (left instanceof Timestamp) {
             throw new TimeTypeRecommendation(expr, "Boolean operation with timestamp should not used");
         }
-        log.log(String.format("Boolean @%d : %s", expr.getLine(), left));
         return left;
     }
 
@@ -482,7 +475,6 @@ public class TypeResolver {
                     throw new TimeTypeError(expr.getLine(), String.format("Variable %s change time type from %s to %s", v.getName(), tvar, texpr));
                 }
                 v.setVarTimeType(texpr);
-                log.log(String.format("Assignment @%d : %s", expr.getLine(), texpr));
             }
         } else if (ids.size() == 1) {
             String id = ids.get(0);

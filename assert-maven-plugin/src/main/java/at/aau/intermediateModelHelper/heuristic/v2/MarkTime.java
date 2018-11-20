@@ -1,9 +1,8 @@
 package at.aau.intermediateModelHelper.heuristic.v2;
 
-import intermediateModel.structure.ASTRE;
-import intermediateModelHelper.CheckExpression;
-import intermediateModelHelper.envirorment.Env;
-import intermediateModelHelper.heuristic.definition.SearchTimeConstraint;
+import at.aau.intermediateModel.structure.ASTRE;
+import at.aau.intermediateModelHelper.CheckExpression;
+import at.aau.intermediateModelHelper.envirorment.Env;
 
 /**
  * The {@link MarkTime} searches for instances of time assignment

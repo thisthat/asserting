@@ -1,12 +1,11 @@
 package at.aau.intermediateModelHelper.envirorment;
 
-import intermediateModel.interfaces.IASTRE;
-import intermediateModel.interfaces.IASTVar;
-import intermediateModel.structure.ASTClass;
-import intermediateModel.structure.expression.*;
-import intermediateModel.visitors.DefualtASTREVisitor;
-import intermediateModel.visitors.interfaces.ParseRE;
-import intermediateModelHelper.types.ResolveTypes;
+import at.aau.intermediateModel.interfaces.IASTRE;
+import at.aau.intermediateModel.interfaces.IASTVar;
+import at.aau.intermediateModel.structure.ASTClass;
+import at.aau.intermediateModel.structure.expression.*;
+import at.aau.intermediateModel.visitors.DefualtASTREVisitor;
+import at.aau.intermediateModel.visitors.interfaces.ParseRE;
 
 import java.util.regex.Pattern;
 
@@ -111,7 +110,10 @@ class ResolveExpressionType extends ParseRE {
 			t[0] = e.existVarName(r.getAttributeName()) ? e.getVar(r.getAttributeName()).getType() : null;
 		}
 		if(this._c != null){
-			String tAttr = ResolveTypes.getAttributeType(t[0], r.getAttributeName(), this._c);
+			String tAttr = t[0];
+			if(tAttr.endsWith(".this")){
+				tAttr = tAttr.substring(0, tAttr.lastIndexOf("."));
+			}
 			return tAttr;
 		}
 		return t[0];

@@ -1,11 +1,11 @@
 package at.aau.intermediateModelHelper.heuristic.beta;
 
-import intermediateModel.interfaces.IASTRE;
-import intermediateModel.structure.ASTRE;
-import intermediateModel.structure.expression.ASTBinary;
-import intermediateModel.structure.expression.ASTMethodCall;
-import intermediateModel.visitors.DefualtASTREVisitor;
-import intermediateModelHelper.envirorment.Env;
+import at.aau.intermediateModel.interfaces.IASTRE;
+import at.aau.intermediateModel.structure.ASTRE;
+import at.aau.intermediateModel.structure.expression.ASTBinary;
+import at.aau.intermediateModel.structure.expression.ASTMethodCall;
+import at.aau.intermediateModel.visitors.DefualtASTREVisitor;
+import at.aau.intermediateModelHelper.envirorment.Env;
 
 import java.util.ArrayList;
 import java.util.List;

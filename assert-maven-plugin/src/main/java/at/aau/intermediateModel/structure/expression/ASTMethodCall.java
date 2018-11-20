@@ -1,10 +1,10 @@
 package at.aau.intermediateModel.structure.expression;
 
-import intermediateModel.interfaces.ASTREVisitor;
-import intermediateModel.interfaces.ASTVisitor;
-import intermediateModel.interfaces.IASTRE;
-import intermediateModel.interfaces.IASTStm;
-import intermediateModelHelper.envirorment.temporalTypes.TemporalTypes;
+import at.aau.intermediateModel.interfaces.ASTREVisitor;
+import at.aau.intermediateModel.interfaces.ASTVisitor;
+import at.aau.intermediateModel.interfaces.IASTRE;
+import at.aau.intermediateModel.interfaces.IASTStm;
+import at.aau.intermediateModelHelper.envirorment.temporalTypes.TemporalTypes;
 
 import java.util.ArrayList;
 import java.util.List;

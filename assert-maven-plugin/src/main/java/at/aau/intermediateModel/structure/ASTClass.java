@@ -1,13 +1,12 @@
 package at.aau.intermediateModel.structure;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import intermediateModel.interfaces.ASTVisitor;
-import intermediateModel.interfaces.IASTMethod;
-import intermediateModel.interfaces.IASTStm;
-import intermediateModel.interfaces.IASTVisitor;
-import intermediateModel.types.Refactor;
-import intermediateModel.types.rules.exception.TimeTypeRecommendation;
-import intermediateModel.visitors.DefaultASTVisitor;
+import at.aau.intermediateModel.interfaces.ASTVisitor;
+import at.aau.intermediateModel.interfaces.IASTMethod;
+import at.aau.intermediateModel.interfaces.IASTStm;
+import at.aau.intermediateModel.interfaces.IASTVisitor;
+import at.aau.intermediateModel.types.Refactor;
+import at.aau.intermediateModel.types.rules.exception.TimeTypeRecommendation;
+import at.aau.intermediateModel.visitors.DefaultASTVisitor;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -93,7 +92,6 @@ public class ASTClass extends IASTStm implements IASTVisitor {
 		this.imports = imports;
 	}
 
-	@JsonIgnore
 	public List<IASTMethod> getAllMethods() {
 		List<IASTMethod> out = new ArrayList<>(methods);
 		if(this.parent != null){

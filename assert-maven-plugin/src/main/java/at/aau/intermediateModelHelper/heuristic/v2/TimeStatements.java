@@ -1,6 +1,6 @@
 package at.aau.intermediateModelHelper.heuristic.v2;
 
-import intermediateModel.interfaces.IASTStm;
+import at.aau.intermediateModel.interfaces.IASTStm;
 
 import java.util.ArrayList;
 import java.util.List;

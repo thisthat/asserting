@@ -1,16 +1,15 @@
 package at.aau.intermediateModelHelper.heuristic.v2;
 
-import intermediateModel.interfaces.IASTRE;
-import intermediateModel.interfaces.IASTStm;
-import intermediateModel.structure.ASTRE;
-import intermediateModel.structure.expression.ASTBinary;
-import intermediateModel.structure.expression.ASTMethodCall;
-import intermediateModel.visitors.DefualtASTREVisitor;
-import intermediateModelHelper.CheckExpression;
-import intermediateModelHelper.envirorment.Env;
-import intermediateModelHelper.envirorment.temporal.TemporalInfo;
-import intermediateModelHelper.envirorment.temporal.structure.TimeMethod;
-import intermediateModelHelper.heuristic.definition.SearchTimeConstraint;
+import at.aau.intermediateModel.interfaces.IASTRE;
+import at.aau.intermediateModel.interfaces.IASTStm;
+import at.aau.intermediateModel.structure.ASTRE;
+import at.aau.intermediateModel.structure.expression.ASTBinary;
+import at.aau.intermediateModel.structure.expression.ASTMethodCall;
+import at.aau.intermediateModel.visitors.DefualtASTREVisitor;
+import at.aau.intermediateModelHelper.CheckExpression;
+import at.aau.intermediateModelHelper.envirorment.Env;
+import at.aau.intermediateModelHelper.envirorment.temporal.TemporalInfo;
+import at.aau.intermediateModelHelper.envirorment.temporal.structure.TimeMethod;
 
 import java.util.List;
 

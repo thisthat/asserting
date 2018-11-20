@@ -1,6 +1,6 @@
 package at.aau.intermediateModel.types;
 
-import intermediateModel.types.rules.exception.TimeTypeRecommendation;
+import at.aau.intermediateModel.types.rules.exception.TimeTypeRecommendation;
 
 import java.io.IOException;
 import java.util.Arrays;

@@ -1,9 +1,8 @@
 package at.aau.intermediateModel.interfaces;
 
 
-import intermediateModel.structure.ASTVariable;
-import intermediateModelHelper.envirorment.Env;
-import org.javatuples.Pair;
+import at.aau.intermediateModel.structure.ASTVariable;
+import at.aau.intermediateModelHelper.envirorment.Env;
 
 import java.util.List;
 
@@ -32,7 +31,6 @@ public interface IASTMethod extends IASTHasStms, IASTVisitor {
 	int getEnd();
 	String getCode();
 	boolean equalsBySignature(IASTMethod c);
-	boolean equalsBySignature(String pkg, String name, List<Pair<String, String>> signature);
 	boolean isStatic();
 	List<DeclaredVar> getDeclaredVar();
 	void setDeclaredVars(Env e);
