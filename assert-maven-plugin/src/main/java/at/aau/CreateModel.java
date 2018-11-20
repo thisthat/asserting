@@ -26,13 +26,11 @@ import org.apache.maven.shared.model.fileset.util.FileSetManager;
 
 import javax.inject.Inject;
 import java.io.File;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import java.util.concurrent.*;
 
 /**
@@ -48,15 +46,22 @@ public class CreateModel
 {
 
     /**
-     * Output directory path where HTML files are generated
+     * Output directory path where model files are generated
      */
     @Parameter(defaultValue = "${project.build.outputDirectory}", property = "modelDirectory", required = true)
     private File outputDirectory;
 
+
+    /**
+     * Output directory path where model files are generated
+     */
+    @Parameter(defaultValue = "${basedir}", property = "baseDirectory", required = true)
+    private String basedir;
+
     /**
      * Timeout for processing a file
      */
-    @Parameter(defaultValue = "2", property = "nThread", required = true)
+    @Parameter(defaultValue = "4", property = "nThread", required = true)
     private int nThread;
 
     /**
@@ -77,18 +82,18 @@ public class CreateModel
 
     /* Injected */
     private final FileSetManager fileSetManager;
-    private final ScheduledExecutorService executor;
+    private final ExecutorService executor;
 
     @Inject
     public CreateModel(FileSetManager fileSetManager) {
         this.fileSetManager = fileSetManager;
-        this.executor = Executors.newScheduledThreadPool(nThread);
+        this.executor = Executors.newCachedThreadPool();
     }
 
     public void execute()
         throws MojoExecutionException
     {
-        getLog().info("Generating the model");
+        getLog().info("Generating the models");
         if (inputFiles == null) {
             setDefaultInput();
         }
@@ -102,11 +107,19 @@ public class CreateModel
             if (!outputDirectory.exists()) {
                 outputDirectory.mkdirs();
             }
-            Map<Path, Future<Path>> results = new HashMap<>();
-            for (String f : includedFiles) {
+            //Map<Path, Callable<Path>> results = new HashMap<>();
+            List<Callable<TaskResult>> tasks = new ArrayList<>();
+            for (final String f : includedFiles) {
                 final Path path = Paths.get(f);
                 getLog().debug("Executing plugin on " + path);
-                results.put(path, executor.submit(new CreateModelTask(path)));
+                Callable<TaskResult> c = new CreateModelTask(path);
+                tasks.add(c);
+            }
+            List<Future<TaskResult>> results = null;
+            try {
+                results = executor.invokeAll(tasks, timeout, TimeUnit.SECONDS);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
             try {
                 getLog().debug("Processing results");
@@ -118,20 +131,25 @@ public class CreateModel
         }
     }
 
-    private void processResult(Map<Path, Future<Path>> results) throws InterruptedException {
-        if (executor.awaitTermination(timeout, TimeUnit.NANOSECONDS)) {
+    private void processResult(List<Future<TaskResult>> results) throws InterruptedException {
+        if (executor.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS)) {
             getLog().info("Processed " + results.size() + " files");
         } else {
             getLog().error("Timeout processing files");
         }
-        for (Map.Entry<Path, Future<Path>> entry : results.entrySet()) {
+        long succeed = 0, failed = 0;
+        for (Future<TaskResult> entry : results) {
             try {
-                Path outputFile = entry.getValue().get();
-                getLog().debug(entry.getKey() + " > " + outputFile);
-            } catch (ExecutionException e) {
-                getLog().error("Error converting " + entry.getKey(), e);
+                TaskResult outputFile = entry.get();
+                getLog().debug(outputFile.getInPath() + " => " + outputFile.getOutPath());
+                succeed++;
+            } catch (ExecutionException | CancellationException e) {
+                failed++;
+                //getLog().error("Error converting ", e);
             }
         }
+        getLog().info(String.format("Converted %d/%d files", succeed, results.size()));
+        getLog().info(String.format("Failed %d/%d files", failed, results.size()));
     }
 
     private void setDefaultInput() {
@@ -145,7 +163,7 @@ public class CreateModel
     }
 
     static int i = 0;
-    class CreateModelTask implements Callable<Path> {
+    class CreateModelTask implements Callable<TaskResult> {
 
         private final Path input;
 
@@ -154,21 +172,29 @@ public class CreateModel
             this.input = input;
         }
 
-        public Path call() throws Exception {
-            Path out = inputDirPath;
-            //if(i++ > 1) {
-                Thread.sleep(1000);
-            //}
-            /**
-             * HERE IT COMES THE MAGIC
-             */
-//            getLog().info("Processing " + input + " > " + out);
-//            String html = javaToSmt.getHtml(input);
-//            Files.write(out, html.getBytes(), StandardOpenOption.CREATE);
-            return out;
+        public TaskResult call() throws Exception {
+            ProcessFile pf = new ProcessFile(input, basedir);
+            getLog().debug("FINISH CORRECTLY : " + input);
+            return new TaskResult(input, pf.getOutputFiles());
+        }
+    }
+
+    class TaskResult {
+        private Path inPath;
+        private String outPath;
+
+        public TaskResult(Path inPath, String outPath) {
+            this.inPath = inPath;
+            this.outPath = outPath;
         }
 
+        public Path getInPath() {
+            return inPath;
+        }
 
+        public String getOutPath() {
+            return outPath;
+        }
     }
 
 }
