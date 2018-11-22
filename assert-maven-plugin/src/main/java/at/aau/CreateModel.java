@@ -61,7 +61,7 @@ public class CreateModel
     /**
      * Timeout for processing a file
      */
-    @Parameter(defaultValue = "4", property = "nThread", required = true)
+    @Parameter(defaultValue = "1", property = "nThread", required = true)
     private int nThread;
 
     /**
@@ -145,7 +145,7 @@ public class CreateModel
                 succeed++;
             } catch (ExecutionException | CancellationException e) {
                 failed++;
-                //getLog().error("Error converting ", e);
+                getLog().error("Error converting ", e);
             }
         }
         long s = results.size();
@@ -176,7 +176,7 @@ public class CreateModel
         }
 
         public TaskResult call() throws Exception {
-            ProcessFile pf = new ProcessFile(input, basedir);
+            ProcessFile pf = new ProcessFile(input, basedir, getLog());
             //getLog().debug("FINISH CORRECTLY : " + input);
             return new TaskResult(input, pf.getOutputFiles());
         }

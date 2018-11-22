@@ -9,23 +9,24 @@ import at.aau.model.smt.PathGenerator;
 import at.aau.model.smt.exception.VariableNotCorrect;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-//import at.aau.model.smt.TranslateReducedModel;
+import at.aau.model.smt.TranslateReducedModel;
 
 /**
  * Created by giovanni on 17/07/2017.
  */
 public class ClassAnalyzer {
 
-    //private final TranslateReducedModel translateReducedModel;
-    HashMap<IASTMethod, Method> reducedModel = new HashMap<>();
+    private final TranslateReducedModel translateReducedModel;
+    HashMap<IASTMethod, Method> reducedModel;
     private boolean getModel = false;
 
     public ClassAnalyzer(ASTClass c) {
         reducedModel = Slice.slice(c);
-        //translateReducedModel = new TranslateReducedModel();
+        translateReducedModel = new TranslateReducedModel();
     }
 
     public long getSLOC(){
@@ -63,11 +64,11 @@ public class ClassAnalyzer {
             Statistic.incrementNMethod(1);
             Statistic.incrementNMethodPath(analyze.size());
         }
-        //translateReducedModel.saveModel(getModel);
+        translateReducedModel.saveModel(getModel);
         List<VariableNotCorrect> tmp;
         for(Method mm : analyze) {
-            //tmp = translateReducedModel.check(mm);
-            //out.addAll(tmp);
+            tmp = translateReducedModel.check(mm);
+            out.addAll(tmp);
         }
         return out;
     }
@@ -87,5 +88,29 @@ public class ClassAnalyzer {
 
     public void setGetModel(boolean getModel) {
         this.getModel = getModel;
+    }
+
+    public List<String> getSMT(){
+        List<String> out = new ArrayList<>();
+        for(Method m : reducedModel.values()){
+            List<String> models = getSMT(m);
+            for(String model : models){
+                if(!out.contains(model))
+                    out.add(model);
+            }
+        }
+        return out;
+    }
+
+    public List<String> getSMT(Method m) {
+        List<String> out = new ArrayList<>();
+        PathGenerator pg = new PathGenerator();
+        List<Method> analyze = pg.generate(m);
+        pg.generateAssertion(analyze);
+        for(Method mm : analyze) {
+            String model = translateReducedModel.getModel(mm);
+            out.add(model);
+        }
+        return out;
     }
 }

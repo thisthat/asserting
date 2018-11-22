@@ -109,6 +109,9 @@ public class Slice {
             if (stm instanceof ASTRE){
                 analyze((ASTRE) stm);
             }
+            else if (stm instanceof ASTAssert){
+                analyze((ASTAssert) stm);
+            }
             else if(stm	instanceof ASTDoWhile){
                 analyze((ASTDoWhile)stm);
             }
@@ -312,12 +315,21 @@ public class Slice {
         }
     }
 
-    private boolean analyze(ASTRE r) {
+    private void analyze(ASTRE r) {
         Stm stm = getStm(r);
         if(stm != null)
             current.add(stm);
         analyzeNewObj(r);
-        return stm != null;
+    }
+
+
+    private void analyze(ASTAssert r) {
+        Assert ass = new Assert(r.getStart(),
+                r.getEnd(),
+                r.getLine(),
+                r.getLineEnd(),
+                r.getCode());
+        current.add(ass);
     }
 
     private Stm getStm(ASTRE r){

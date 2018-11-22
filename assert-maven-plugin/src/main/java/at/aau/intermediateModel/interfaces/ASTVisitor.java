@@ -9,6 +9,7 @@ import at.aau.intermediateModel.structure.*;
  */
 public interface ASTVisitor extends ASTREVisitor {
 	void enterASTAttribute(ASTAttribute elm);
+	void enterASTAssert(ASTAssert elm);
 	void enterASTBreak(ASTBreak elm);
 	void enterASTClass(ASTClass elm);
 	void enterASTConstructor(ASTConstructor elm);
@@ -34,6 +35,7 @@ public interface ASTVisitor extends ASTREVisitor {
 	void enterSTM(IASTStm s);
 
 	void exitASTAttribute(ASTAttribute elm);
+	void exitASTAssert(ASTAssert elm);
 	void exitASTBreak(ASTBreak elm);
 	void exitASTClass(ASTClass elm);
 	void exitASTConstructor(ASTConstructor elm);

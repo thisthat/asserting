@@ -912,6 +912,15 @@ public class JDTVisitor extends ASTVisitor {
 		return true;
 	}
 
+	@Override
+	public boolean visit(AssertStatement node) {
+		int start = node.getStartPosition();
+		int stop = start + node.getLength();
+		ASTAssert r = new ASTAssert(start, stop, getExprState(node.getExpression()));
+		lastMethod.addStms(r);
+		return true;
+	}
+
 	//RE expr
 	@Override
 	public boolean visit(VariableDeclarationStatement node) {

@@ -8,12 +8,14 @@ import at.aau.model.slicing.model.*;
  */
 public interface ReducedVisitor extends ASTREVisitor {
     void enterAssignmet(Assignment elm);
+    void enterAssert(Assert elm);
     void enterIf(If elm);
     void enterMethodCall(MethodCall elm);
     void enterWhile(While elm);
     void enterDoWhile(DoWhile elm);
     void enterExpression(Expression elm);
     void exitAssignment(Assignment elm);
+    void exitAssert(Assert elm);
     void exitIf(If elm);
     void exitMethodCall(MethodCall elm);
     void exitWhile(While elm);

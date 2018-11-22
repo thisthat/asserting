@@ -1,11 +1,8 @@
 package at.aau.model.smt;
 
+import at.aau.model.slicing.model.*;
 import com.rits.cloning.Cloner;
 import at.aau.model.slicing.Shrinker;
-import at.aau.model.slicing.model.Expression;
-import at.aau.model.slicing.model.If;
-import at.aau.model.slicing.model.Method;
-import at.aau.model.slicing.model.While;
 import at.aau.model.slicing.model.interfaces.Stm;
 import at.aau.model.slicing.model.visitor.DefaultReducedVisitor;
 
@@ -35,6 +32,27 @@ public class PathGenerator {
             Shrinker.shrink(mm);
         }
         return models;
+    }
+
+    public List<Method> generateAssertion(List<Method> mm){
+        List<Method> keep = new ArrayList<>();
+        List<Assert> reachable = new ArrayList<>();
+        final boolean[] isNewAssertion = {false};
+        for(Method m : mm){
+            isNewAssertion[0] = false;
+            m.visit(new DefaultReducedVisitor(){
+                @Override
+                public void enterAssert(Assert elm) {
+                    if(!reachable.contains(elm)){
+                        reachable.add(elm);
+                        isNewAssertion[0] = true;
+                    }
+                }
+            });
+            if(isNewAssertion[0])
+                keep.add(m);
+        }
+        return keep;
     }
 
     private void convert(Stm s) {

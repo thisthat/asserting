@@ -14,6 +14,11 @@ public class DefaultReducedVisitor extends DefualtASTREVisitor implements Reduce
     }
 
     @Override
+    public void enterAssert(Assert elm) {
+
+    }
+
+    @Override
     public void enterIf(If elm) {
 
     }
@@ -39,6 +44,11 @@ public class DefaultReducedVisitor extends DefualtASTREVisitor implements Reduce
 
     @Override
     public void exitAssignment(Assignment elm) {
+
+    }
+
+    @Override
+    public void exitAssert(Assert elm) {
 
     }
 

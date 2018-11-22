@@ -7,6 +7,7 @@ public class MyClass {
         // poll for io until the timeout expires
         long now = System.currentTimeMillis();
         long deadline = now + timeout;
+        assert now <= deadline;
 
         while (now <= deadline) {
             if (valid()) {

@@ -27,6 +27,7 @@ public class TranslateReducedModel {
     private List<String> timeout;
     private boolean saveModel = false;
     private boolean stop = false;
+    private String _AssertModel;
 
     public void saveModel(boolean f) {
         this.saveModel = f;
@@ -56,6 +57,13 @@ public class TranslateReducedModel {
         }
         return modelCreator.getOpt();
     }
+
+    public String getModel(Method m){
+        _AssertModel = "";
+        convert(m);
+        return _AssertModel;
+    }
+
     public List<VariableNotCorrect> check(Method m){
         timeout = new ArrayList<>();
         convert(m);
@@ -69,8 +77,9 @@ public class TranslateReducedModel {
     }
 
     private void convert(Stm s) {
-        if(stop)
+        if(stop) {
             return;
+        }
         if(s instanceof Assignment){
             handleAssignment((Assignment) s);
         } else if(s instanceof DoWhile){
@@ -85,7 +94,10 @@ public class TranslateReducedModel {
             handleWhile((While) s);
         } else if(s instanceof Stop){
             stop = true;
-        }else {
+        } else if(s instanceof Assert){
+            stop = true;
+            _AssertModel = modelCreator.getOpt().toString();
+        } else {
             notYet(s);
         }
     }

@@ -16,6 +16,11 @@ public class DefaultASTVisitor extends DefualtASTREVisitor implements ASTVisitor
 	}
 
 	@Override
+	public void enterASTAssert(ASTAssert elm) {
+
+	}
+
+	@Override
 	public void enterASTBreak(ASTBreak elm) {
 
 	}
@@ -133,6 +138,11 @@ public class DefaultASTVisitor extends DefualtASTREVisitor implements ASTVisitor
 
 	@Override
 	public void exitASTAttribute(ASTAttribute elm) {
+
+	}
+
+	@Override
+	public void exitASTAssert(ASTAssert elm) {
 
 	}
 

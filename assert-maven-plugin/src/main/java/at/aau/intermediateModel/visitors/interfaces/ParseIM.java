@@ -180,6 +180,9 @@ public abstract class ParseIM {
 			else if(stm instanceof ASTHiddenClass){
 				analyze((ASTHiddenClass)stm, env);
 			}
+			else if(stm instanceof ASTAssert){
+				analyze((ASTAssert)stm, env);
+			}
 			else {
 				analyze(stm, env);
 			}
@@ -395,6 +398,18 @@ public abstract class ParseIM {
 	}
 
 	/**
+	 * Throw statement extends the environment with the right expression that it carries.
+	 * @param elm	{@link ASTAssert} instruction to check.
+	 * @param env	{@link Env} visible by the instruction.
+	 */
+	private void analyze(ASTAssert elm, Env env) {
+		this.analyze(elm.getExpr(), env);
+
+		analyzeASTAssert(elm, env);
+		analyzeEveryStm(elm,env);
+	}
+
+	/**
 	 * The try/catch/finally branches have a separate environment.
 	 * Moreover, each catch block has its own environment.
 	 * @param elm	{@link ASTTry} instruction to check.
@@ -529,6 +544,12 @@ public abstract class ParseIM {
 	 * @param env   Environment
 	 */
 	protected void analyzeASTRE(ASTRE r, Env env){}
+	/**
+	 * Empty.
+	 * @param r 	Statement
+	 * @param env   Environment
+	 */
+	protected void analyzeASTAssert(ASTAssert r, Env env){}
 	/**
 	 * Empty.
 	 * @param elm 	Statement
