@@ -1,5 +1,6 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+
 import at.aau.ProcessFile;
 import org.junit.jupiter.api.Test;
 
@@ -117,5 +118,7 @@ public class MyTest {
 
             }
         });
+        String out = pf.getOutputFiles();
+        System.out.println(out);
     }
 }

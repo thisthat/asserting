@@ -1,5 +1,6 @@
 package at.aau.model.smt;
 
+import at.aau.model.MethodModel;
 import com.microsoft.z3.*;
 import at.aau.intermediateModel.interfaces.IASTRE;
 import at.aau.intermediateModel.interfaces.IASTToken;
@@ -29,6 +30,7 @@ public class TranslateReducedModel {
     private boolean checkModel = false;
     private boolean stop = false;
     private String _AssertModel;
+    private Assert lastAssert = null;
 
     public void saveModel(boolean f) {
         this.saveModel = f;
@@ -59,10 +61,11 @@ public class TranslateReducedModel {
         return modelCreator.getOpt();
     }
 
-    public String getModel(Method m){
+    public MethodModel getModel(Method m){
         _AssertModel = "";
+        lastAssert = new Assert(0,0,0,0,"");
         convert(m);
-        return _AssertModel;
+        return new MethodModel(_AssertModel, lastAssert, m);
     }
 
     public List<VariableNotCorrect> check(Method m){
@@ -97,6 +100,7 @@ public class TranslateReducedModel {
             stop = true;
         } else if(s instanceof Assert){
             stop = true;
+            lastAssert = (Assert) s;
             _AssertModel = modelCreator.getOpt().toString();
         } else {
             notYet(s);

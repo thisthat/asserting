@@ -13,10 +13,12 @@ public class Method extends Stm {
 
     List<Stm> body = new ArrayList<>();
     String name;
+    String fullName;
     List<String> signature;
 
-    public Method(int start, int end, int line, int lineEnd, String code) {
+    public Method(int start, int end, int line, int lineEnd, String code, String fullName) {
         super(start, end, line, lineEnd, code);
+        this.fullName = fullName;
     }
 
     public String getName() {
@@ -68,5 +70,9 @@ public class Method extends Stm {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (signature != null ? signature.hashCode() : 0);
         return result;
+    }
+
+    public String getFullName() {
+        return fullName;
     }
 }

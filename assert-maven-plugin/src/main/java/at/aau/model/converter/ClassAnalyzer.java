@@ -94,7 +94,7 @@ public class ClassAnalyzer {
         for(Method m : reducedModel.values()){
             List<MethodModel> models = getSMT(m);
             for(MethodModel model : models){
-                if(model.notNull() && !out.contains(model))
+                if(!out.contains(model) && !model.emptyModel())
                     out.add(model);
             }
         }
@@ -102,12 +102,12 @@ public class ClassAnalyzer {
     }
 
     public List<MethodModel> getSMT(Method m) {
-        List<String> out = new ArrayList<>();
+        List<MethodModel> out = new ArrayList<>();
         PathGenerator pg = new PathGenerator();
-        List<MethodModel> analyze = pg.generate(m);
+        List<Method> analyze = pg.generate(m);
         pg.generateAssertion(analyze);
-        for(MethodModel mm : analyze) {
-            String model = translateReducedModel.getModel(mm);
+        for(Method mm : analyze) {
+            MethodModel model = translateReducedModel.getModel(mm);
             out.add(model);
         }
         return out;

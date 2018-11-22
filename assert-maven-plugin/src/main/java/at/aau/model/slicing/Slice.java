@@ -78,7 +78,8 @@ public class Slice {
     private void start() {
         slices.clear();
         for(IASTMethod m : _class.getMethods()){
-            Method mm = new Method(m.getStart(),m.getEnd(),m.getLine(),m.getLineEnd(),m.getCode());
+            String fullname = _class.fullName() + "_" + m.getName();
+            Method mm = new Method(m.getStart(),m.getEnd(),m.getLine(),m.getLineEnd(),m.getCode(), fullname);
             mm.setName(m.getName());
             mm.setSignature(m.getSignature());
             current = mm.getBody();
@@ -163,7 +164,9 @@ public class Slice {
 
         for(IASTMethod m : hc.getMethods()) {
             List<Stm> bckMethod = bck;
-            Method mm = new Method(m.getStart(), m.getEnd(), m.getLine(), m.getLineEnd(), m.getCode());
+            String fullname = hc.fullName() + "_" + m.getName();
+            Method mm = new Method(m.getStart(), m.getEnd(), m.getLine(), m.getLineEnd(), m.getCode(), fullname);
+
             mm.setName("anonymous" + hc.getIdHidden() + "_" + m.getName());
             mm.setSignature(m.getSignature());
             current = mm.getBody();
