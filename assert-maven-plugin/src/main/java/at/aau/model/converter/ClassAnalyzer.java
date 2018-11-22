@@ -2,18 +2,17 @@ package at.aau.model.converter;
 
 import at.aau.intermediateModel.interfaces.IASTMethod;
 import at.aau.intermediateModel.structure.ASTClass;
+import at.aau.model.MethodModel;
 import at.aau.model.slicing.SLOCCounter;
 import at.aau.model.slicing.Slice;
 import at.aau.model.slicing.model.Method;
 import at.aau.model.smt.PathGenerator;
+import at.aau.model.smt.TranslateReducedModel;
 import at.aau.model.smt.exception.VariableNotCorrect;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-
-import at.aau.model.smt.TranslateReducedModel;
 
 /**
  * Created by giovanni on 17/07/2017.
@@ -90,24 +89,24 @@ public class ClassAnalyzer {
         this.getModel = getModel;
     }
 
-    public List<String> getSMT(){
-        List<String> out = new ArrayList<>();
+    public List<MethodModel> getSMT(){
+        List<MethodModel> out = new ArrayList<>();
         for(Method m : reducedModel.values()){
-            List<String> models = getSMT(m);
-            for(String model : models){
-                if(!out.contains(model))
+            List<MethodModel> models = getSMT(m);
+            for(MethodModel model : models){
+                if(model.notNull() && !out.contains(model))
                     out.add(model);
             }
         }
         return out;
     }
 
-    public List<String> getSMT(Method m) {
+    public List<MethodModel> getSMT(Method m) {
         List<String> out = new ArrayList<>();
         PathGenerator pg = new PathGenerator();
-        List<Method> analyze = pg.generate(m);
+        List<MethodModel> analyze = pg.generate(m);
         pg.generateAssertion(analyze);
-        for(Method mm : analyze) {
+        for(MethodModel mm : analyze) {
             String model = translateReducedModel.getModel(mm);
             out.add(model);
         }

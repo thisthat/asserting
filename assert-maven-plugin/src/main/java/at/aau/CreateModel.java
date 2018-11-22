@@ -87,7 +87,7 @@ public class CreateModel
     @Inject
     public CreateModel(FileSetManager fileSetManager) {
         this.fileSetManager = fileSetManager;
-        this.executor = Executors.newCachedThreadPool();
+        this.executor = Executors.newFixedThreadPool(1);
     }
 
     public void execute()

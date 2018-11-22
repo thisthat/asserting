@@ -27,6 +27,7 @@ public class ModelCreator {
     private String lastMaxModel = "";
 
     public static boolean _debug_ = false;
+    public static boolean checkModel = false;
 
     Context ctx;
     Optimize opt;
@@ -137,8 +138,10 @@ public class ModelCreator {
     }
 
     public void verifyVariable(String name) throws ModelNotCorrect, VarNotFoundException, ModelTimeout {
-        IntExpr v = this.getVar(name);
-        this.verifyVariable(v);
+        if(this.checkModel) {
+            IntExpr v = this.getVar(name);
+            this.verifyVariable(v);
+        }
     }
 
     public void verifyVariable(IntExpr v) throws ModelNotCorrect, ModelTimeout {

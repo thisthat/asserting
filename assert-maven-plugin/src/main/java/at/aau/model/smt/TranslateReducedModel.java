@@ -26,6 +26,7 @@ public class TranslateReducedModel {
     private List<VariableNotCorrect> errors;
     private List<String> timeout;
     private boolean saveModel = false;
+    private boolean checkModel = false;
     private boolean stop = false;
     private String _AssertModel;
 

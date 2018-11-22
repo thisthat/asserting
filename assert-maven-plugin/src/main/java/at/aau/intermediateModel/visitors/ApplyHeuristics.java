@@ -88,10 +88,11 @@ public class ApplyHeuristics extends ParseIM {
 				a = type.newInstance();
 				a.setup(c);
 				strategies.add(a);
-			} catch (InstantiationException e) {
-				//e.printStackTrace();
-			} catch (IllegalAccessException e) {
+			} catch (InstantiationException | IllegalAccessException e) {
 				e.printStackTrace();
+			} catch (Exception e){
+				e.printStackTrace();
+				System.out.println(e.getMessage());
 			}
 		}
 		super.set_class(c);
@@ -175,7 +176,8 @@ public class ApplyHeuristics extends ParseIM {
 			}
 		} else {
 			for(SearchTimeConstraint s : strategies){
-				s.nextMethod((ASTMethod) method,e);
+				if(s != null)
+					s.nextMethod((ASTMethod) method,e);
 			}
 		}
 		super.analyzeMethod(method, e);
