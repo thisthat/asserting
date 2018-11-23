@@ -75,4 +75,31 @@ public class Method extends Stm {
     public String getFullName() {
         return fullName;
     }
+
+    public void remove(Assert elm) {
+        remove(this, elm);
+    }
+
+    private void remove(Stm s, Assert elm) {
+        if(s instanceof Method){
+            for(Stm stms : ((Method) s).body){
+                remove(stms, elm);
+            }
+            ((Method) s).body.remove(elm);
+        } else if(s instanceof While){
+            for(Stm stms : ((While) s).whileBody){
+                remove(stms, elm);
+            }
+            ((While) s).whileBody.remove(elm);
+        } else if(s instanceof If){
+            for(Stm stms : ((If) s).ifBody){
+                remove(stms, elm);
+            }
+            ((If) s).ifBody.remove(elm);
+            for(Stm stms : ((If) s).elseBody){
+                remove(stms, elm);
+            }
+            ((If) s).elseBody.remove(elm);
+        }
+    }
 }

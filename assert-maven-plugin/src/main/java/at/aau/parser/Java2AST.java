@@ -64,17 +64,24 @@ public class Java2AST {
         }
     }
 
-	public Java2AST(String filename, boolean parse, String projectPath) throws IOException, UnparsableException {
+	public Java2AST(String filename, boolean parse, String projectPath, boolean runTimeOnly) throws IOException, UnparsableException {
 		this.filename = filename;
 		this.projectPath = projectPath;
-		this.classPath = compute();
+		this.classPath = compute(runTimeOnly);
 		initParser();
 		if(parse){
 			convertToAST();
 		}
 	}
 
-	private List<String> compute() {
+	private List<String> compute(boolean runtimeOnly) {
+    	if(runtimeOnly) {
+			String classPathRuntime = System.getProperty("java.class.path");
+			System.out.println(classPathRuntime);
+			List<String> out = new ArrayList<>();
+			out.addAll(Arrays.asList(classPathRuntime.split(":")));
+			return out;
+		}
     	if(cacheClassPathProject.containsKey(this.projectPath))
     		return cacheClassPathProject.get(this.projectPath);
 

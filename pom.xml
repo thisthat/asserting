@@ -11,6 +11,7 @@
     <modules>
         <module>assert-maven-plugin</module>
         <module>test-plugin</module>
+        <module>asserting-library</module>
     </modules>
 
 

@@ -319,20 +319,37 @@ public class Slice {
     }
 
     private void analyze(ASTRE r) {
-        Stm stm = getStm(r);
-        if(stm != null)
-            current.add(stm);
-        analyzeNewObj(r);
-    }
-
-
-    private void analyze(ASTAssert r) {
-        Assert ass = new Assert(r.getStart(),
+        if(isAssertLibrary(r)){
+            Assert ass = new Assert(r.getStart(),
                 r.getEnd(),
                 r.getLine(),
                 r.getLineEnd(),
                 r.getCode());
-        current.add(ass);
+            current.add(ass);
+        } else {
+            Stm stm = getStm(r);
+            if (stm != null)
+                current.add(stm);
+            analyzeNewObj(r);
+        }
+    }
+
+    private boolean isAssertLibrary(ASTRE r) {
+        if(r != null && r.getExpression() instanceof ASTMethodCall){
+            ASTMethodCall mc = (ASTMethodCall) r.getExpression();
+            return mc.getClassPointed() != null && mc.getClassPointed().equals("at.aau.asserting.AssertLibrary");
+        }
+        return false;
+    }
+
+
+    private void analyze(ASTAssert r) {
+//        Assert ass = new Assert(r.getStart(),
+//                r.getEnd(),
+//                r.getLine(),
+//                r.getLineEnd(),
+//                r.getCode());
+//        current.add(ass);
     }
 
     private Stm getStm(ASTRE r){

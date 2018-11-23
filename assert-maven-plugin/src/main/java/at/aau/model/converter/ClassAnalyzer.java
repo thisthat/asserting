@@ -104,8 +104,7 @@ public class ClassAnalyzer {
     public List<MethodModel> getSMT(Method m) {
         List<MethodModel> out = new ArrayList<>();
         PathGenerator pg = new PathGenerator();
-        List<Method> analyze = pg.generate(m);
-        pg.generateAssertion(analyze);
+        List<Method> analyze =  pg.generateAssertion(pg.generate(m));
         for(Method mm : analyze) {
             MethodModel model = translateReducedModel.getModel(mm);
             out.add(model);

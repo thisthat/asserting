@@ -11,7 +11,7 @@ public class MethodModel {
     Method method;
 
     public MethodModel(String model, Assert _assertion, Method method) {
-        this.model = model;
+        this.model = model.replace("(check-sat)", "");
         this._assertion = _assertion;
         this.method = method;
     }
@@ -35,8 +35,12 @@ public class MethodModel {
         return "ModelName: " + this.getModelName();
     }
 
-    private String getModelName() {
+    public String getModelName() {
         return this.method.getFullName() + "_" + _assertion.getLine();
+    }
+
+    public String getModel(){
+        return this.model;
     }
 
     public boolean emptyModel() {

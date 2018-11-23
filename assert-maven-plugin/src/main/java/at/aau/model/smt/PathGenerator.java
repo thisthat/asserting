@@ -36,16 +36,23 @@ public class PathGenerator {
 
     public List<Method> generateAssertion(List<Method> mm){
         List<Method> keep = new ArrayList<>();
-        List<Assert> reachable = new ArrayList<>();
         final boolean[] isNewAssertion = {false};
-        for(Method m : mm){
+        for(int i = 0; i < mm.size(); i++){
+            Method m = mm.get(i);
             isNewAssertion[0] = false;
+            int finalI = i;
             m.visit(new DefaultReducedVisitor(){
+                boolean stop = false;
                 @Override
                 public void enterAssert(Assert elm) {
-                    if(!reachable.contains(elm)){
-                        reachable.add(elm);
+                    if(!stop){
                         isNewAssertion[0] = true;
+                        stop = true;
+                        for(int j = 0; j < mm.size(); j++){
+                            if(j == finalI) continue;
+                            Method tmp = mm.get(j);
+                            tmp.remove(elm);
+                        }
                     }
                 }
             });

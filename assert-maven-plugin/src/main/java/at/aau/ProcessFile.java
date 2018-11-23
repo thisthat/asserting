@@ -1,38 +1,30 @@
 package at.aau;
 
-import at.aau.intermediateModel.interfaces.IASTMethod;
 import at.aau.intermediateModel.structure.ASTClass;
 import at.aau.intermediateModel.visitors.creation.JDTVisitor;
+import at.aau.model.MethodModel;
 import at.aau.model.converter.ClassAnalyzer;
-import at.aau.model.smt.exception.VariableNotCorrect;
 import org.apache.maven.plugin.logging.Log;
 
 import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProcessFile {
-    String out = "";
+    List<MethodModel> out = new ArrayList<>();
 
-    public ProcessFile(Path input, String basedir, Log log) {
-        List<ASTClass> cs = JDTVisitor.parse(input.toAbsolutePath().toString(), basedir);
+    public ProcessFile(Path input, String basedir, Log log, String classpath) {
+        if(classpath.length() == 0){
+            classpath = System.getProperty("java.class.path");
+        }
+        List<ASTClass> cs = JDTVisitor.parse(input.toAbsolutePath().toString(), basedir, classpath);
         log.debug(input.toAbsolutePath().toString());
         log.debug(basedir);
         for(ASTClass c : cs){
             ClassAnalyzer ca = new ClassAnalyzer(c);
             ca.setGetModel(true);
             try {
-                HashMap<IASTMethod, List<VariableNotCorrect>> err = ca.getErrors();
-                for(IASTMethod m : err.keySet()){
-                    for (VariableNotCorrect v : err.get(m)) {
-                        System.out.println(m.getName());
-                        System.out.println(v.getVarName() + "@" + v.getWhere().getLine());
-                        System.out.println("Min");
-                        System.out.println(v.getMinModel());
-                    }
-                }
-                out = Arrays.toString(ca.getSMT().toArray());
+                out = ca.getSMT();
             } catch (Exception x) {
                 System.out.println("Error In file " + c.getPath());
                 System.out.println(x);
@@ -40,7 +32,7 @@ public class ProcessFile {
         }
     }
 
-    public String getOutputFiles() {
+    public List<MethodModel> getOutputFiles() {
         return out;
     }
 }

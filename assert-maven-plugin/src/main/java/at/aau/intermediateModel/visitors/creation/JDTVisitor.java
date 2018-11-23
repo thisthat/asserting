@@ -68,7 +68,7 @@ public class JDTVisitor extends ASTVisitor {
 		}
 		Java2AST a = null;
 		try {
-			a = new Java2AST(filename, true, projectPath);
+			a = new Java2AST(filename, true, projectPath, true);
 		}
 		catch (IOException e) {
 			System.out.println("Fail to create the parser");
@@ -120,6 +120,22 @@ public class JDTVisitor extends ASTVisitor {
 	public JDTVisitor(CompilationUnit cu, String path) {
 		this.cu = cu;
 		this.path = path;
+	}
+
+	public static List<ASTClass> parse(String filename, String projectPath, String classpath) {
+		Java2AST a = null;
+		try {
+			a = new Java2AST(filename, true, projectPath, Arrays.asList(classpath.split(":")));
+		}
+		catch (IOException e) {}
+		catch (UnparsableException e) {
+			//cannot parse the file
+			return new ArrayList<>();
+		}
+		CompilationUnit result = a.getContextJDT();
+		JDTVisitor v = new JDTVisitor(result, filename);
+		result.accept(v);
+		return v.listOfClasses;
 	}
 
 	@Override

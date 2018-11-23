@@ -16,29 +16,35 @@ package at.aau;
  * limitations under the License.
  */
 
+import at.aau.model.MethodModel;
+import org.apache.maven.artifact.Artifact;
+import org.apache.maven.artifact.DependencyResolutionRequiredException;
+import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.project.MavenProject;
 import org.apache.maven.shared.model.fileset.FileSet;
 import org.apache.maven.shared.model.fileset.util.FileSetManager;
 
 import javax.inject.Inject;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.*;
 
 /**
  * Goal which creates the model of the source code
  *
- * @goal generate-model
- * 
- * @phase generate_resources
+ * @goal generate
+ * @phase process-classes
+ * @configurator include-project-dependencies
+ * @requiresDependencyResolution compile+runtime
  */
 @Mojo(name = "create-model", defaultPhase = LifecyclePhase.GENERATE_RESOURCES)
 public class CreateModel
@@ -58,11 +64,17 @@ public class CreateModel
     @Parameter(defaultValue = "${basedir}", property = "baseDirectory", required = true)
     private String basedir;
 
+    @Parameter(defaultValue = "${project}", required = true, readonly = true)
+    private MavenProject project;
+
+    @Parameter( defaultValue = "${localRepository}", readonly = true, required = true )
+    private ArtifactRepository local;
+
     /**
      * Timeout for processing a file
      */
     @Parameter(defaultValue = "1", property = "nThread", required = true)
-    private int nThread;
+    private int nThread = 1;
 
     /**
      * Timeout for processing a file
@@ -77,25 +89,34 @@ public class CreateModel
     @Parameter
     private FileSet inputFiles;
 
+    @Parameter
+    private String[] filters;
+
 
     private Path inputDirPath, outputDirPath;
 
     /* Injected */
     private final FileSetManager fileSetManager;
-    private final ExecutorService executor;
+
+    long succeed = 0, failed = 0, skipped = 0;
 
     @Inject
     public CreateModel(FileSetManager fileSetManager) {
         this.fileSetManager = fileSetManager;
-        this.executor = Executors.newFixedThreadPool(1);
     }
 
-    public void execute()
-        throws MojoExecutionException
-    {
-        getLog().info("Generating the models");
-        if (inputFiles == null) {
+    public void execute() {
+
+        StringBuilder c = new StringBuilder();
+        for(Artifact a : this.project.getDependencyArtifacts()){
+            if(a != null && a.getFile() != null)
+                c.append(":").append(a.getFile().getAbsolutePath());
+        }
+        getLog().info("Classpath: " + c);
+        if (filters == null) {
             setDefaultInput();
+        } else {
+            setFilters();
         }
         inputDirPath = Paths.get(inputFiles.getDirectory());
         outputDirPath = outputDirectory.toPath();
@@ -107,52 +128,42 @@ public class CreateModel
             if (!outputDirectory.exists()) {
                 outputDirectory.mkdirs();
             }
-            //Map<Path, Callable<Path>> results = new HashMap<>();
-            List<Callable<TaskResult>> tasks = new ArrayList<>();
             for (final String f : includedFiles) {
-                final Path path = Paths.get(f);
-                getLog().debug("Executing plugin on " + path);
-                Callable<TaskResult> c = new CreateModelTask(path);
-                tasks.add(c);
-            }
-            List<Future<TaskResult>> results = null;
-            try {
-                results = executor.invokeAll(tasks, timeout, TimeUnit.SECONDS);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            try {
-                getLog().debug("Processing results");
-                executor.shutdown();
-                processResult(results);
-            } catch (InterruptedException e) {
-                throw new MojoExecutionException(e.getLocalizedMessage(), e);
+                try {
+                    final Path input = Paths.get(f);
+                    ProcessFile pf = new ProcessFile(input, basedir, getLog(), c.toString());
+                    List<MethodModel> models = pf.getOutputFiles();
+                    processResults(models);
+                } catch (Exception ex) {
+                    getLog().error(ex);
+                }
             }
         }
-    }
-
-    private void processResult(List<Future<TaskResult>> results) throws InterruptedException {
-        if (executor.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS)) {
-            getLog().info("Processed " + results.size() + " files");
-        } else {
-            getLog().error("Timeout processing files");
-        }
-        long succeed = 0, failed = 0;
-        for (Future<TaskResult> entry : results) {
-            try {
-                TaskResult outputFile = entry.get();
-                getLog().debug(outputFile.getInPath() + " => " + outputFile.getOutPath());
-                succeed++;
-            } catch (ExecutionException | CancellationException e) {
-                failed++;
-                getLog().error("Error converting ", e);
-            }
-        }
-        long s = results.size();
+        long s = includedFiles == null ? 0 : includedFiles.length;
         double ps = Math.round((100.0 * succeed/s) * 100.0) / 100.0;
         double pf = Math.round((100.0 * failed/s) * 100.0) / 100.0;
+        double pk = Math.round((100.0 * (s - (failed + succeed))/s) * 100.0) / 100.0;
         getLog().info(String.format("Converted %d/%d (%.2f%%) files", succeed, s, ps));
-        getLog().info(String.format("Failed %d/%d (%.2f%%)files", failed,  s, pf));
+        getLog().info(String.format("Failed %d/%d (%.2f%%) files", failed,  s, pf));
+        getLog().info(String.format("Skipped %d/%d (%.2f%%) files", s - (failed + succeed),  s, pk));
+    }
+
+    private void processResults(List<MethodModel> results) {
+        //save file
+        boolean failure = false;
+        for(MethodModel model : results) {
+            getLog().info(String.format("Saving: %s in %s", model.getModelName(), outputDirectory));
+            try (PrintWriter out = new PrintWriter(outputDirectory + "/" + model.getModelName())) {
+                out.println(model.getModel());
+            } catch (FileNotFoundException e) {
+                getLog().error(String.format("Cannot save model %s", model.getModelName()), e);
+                failure = true;
+            }
+        }
+        if(failure)
+            failed++;
+        else
+            succeed++;
     }
 
     private void setDefaultInput() {
@@ -161,43 +172,16 @@ public class CreateModel
         this.inputFiles.setDirectory(".");
         getLog().info("'inputFiles' is not configured, using defaults: " + getInputFilesToString());
     }
+    private void setFilters() {
+        this.inputFiles = new FileSet();
+        for(String filter : filters) {
+            this.inputFiles.addInclude(filter);
+        }
+        this.inputFiles.setDirectory(this.basedir);
+        getLog().info("'inputFiles' is configured using: " + getInputFilesToString());
+    }
+
     private String getInputFilesToString() {
         return "Fileset matching " + inputFiles.getIncludes() + " in " + inputFiles.getDirectory();
     }
-
-    static int i = 0;
-    class CreateModelTask implements Callable<TaskResult> {
-
-        private final Path input;
-
-
-        public CreateModelTask(Path input) {
-            this.input = input;
-        }
-
-        public TaskResult call() throws Exception {
-            ProcessFile pf = new ProcessFile(input, basedir, getLog());
-            //getLog().debug("FINISH CORRECTLY : " + input);
-            return new TaskResult(input, pf.getOutputFiles());
-        }
-    }
-
-    class TaskResult {
-        private Path inPath;
-        private String outPath;
-
-        public TaskResult(Path inPath, String outPath) {
-            this.inPath = inPath;
-            this.outPath = outPath;
-        }
-
-        public Path getInPath() {
-            return inPath;
-        }
-
-        public String getOutPath() {
-            return outPath;
-        }
-    }
-
 }
