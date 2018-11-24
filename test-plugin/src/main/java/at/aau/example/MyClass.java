@@ -1,7 +1,8 @@
 package at.aau.example;
 
 import at.aau.asserting.AssertLibrary;
-import static at.aau.asserting.FOL.ForAll.ForAll;
+
+import static at.aau.asserting.logics.FOL.*;
 
 public class MyClass {
 
@@ -10,7 +11,7 @@ public class MyClass {
         // poll for io until the timeout expires
         long now = System.currentTimeMillis();
         long deadline = now + timeout;
-        AssertLibrary.assertFormula(ForAll("name"));
+        AssertLibrary.assertFormula(ForAll("name", LTE("now", "deadline")));
 
         while (now <= deadline) {
             if (valid()) {
@@ -24,7 +25,7 @@ public class MyClass {
             // Note that because the network client is shared with the background heartbeat thread,
             // we do not want to block in poll longer than the time to the next heartbeat.
             long remaining = Math.max(0, deadline - now);
-            AssertLibrary.assertFormula(ForAll("remaining"));
+            AssertLibrary.assertFormula(ForAll("remaining", GT("remaining", 0)));
             now = System.currentTimeMillis();
 
         }
