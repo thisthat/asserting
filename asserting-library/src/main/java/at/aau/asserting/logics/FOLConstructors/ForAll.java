@@ -12,4 +12,13 @@ public class ForAll extends Formula {
     }
 
 
+    @Override
+    public String print() {
+        return String.format("(forall ((%s Int)) %s)", var.print(), formula.print());
+    }
+
+    @Override
+    public Formula negate() {
+        return new Exists(var, formula.negate());
+    }
 }

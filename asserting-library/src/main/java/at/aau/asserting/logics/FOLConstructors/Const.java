@@ -12,4 +12,12 @@ public class Const extends Formula {
         this.var = v + "";
     }
 
+    public String print() {
+        return var;
+    }
+
+    @Override
+    public Formula negate() {
+        return this;
+    }
 }

@@ -12,4 +12,12 @@ public class Implies extends Formula {
     }
 
 
+    public String print() {
+        return (new OR(new Not(lhs), rhs)).print();
+    }
+
+    @Override
+    public Formula negate() {
+        return new AND(this.lhs, this.rhs.negate());
+    }
 }

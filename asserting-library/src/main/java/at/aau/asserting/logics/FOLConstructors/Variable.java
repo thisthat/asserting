@@ -9,4 +9,12 @@ public class Variable extends Formula {
         this.var = v;
     }
 
+    public String print() {
+        return this.var;
+    }
+
+    @Override
+    public Formula negate() {
+        return this;
+    }
 }

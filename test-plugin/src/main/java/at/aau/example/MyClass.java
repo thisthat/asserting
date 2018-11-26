@@ -11,7 +11,7 @@ public class MyClass {
         // poll for io until the timeout expires
         long now = System.currentTimeMillis();
         long deadline = now + timeout;
-        AssertLibrary.assertFormula(ForAll("name", LTE("now", "deadline")));
+        AssertLibrary.assertFormula(ForAll("timeout", LTE("now", "deadline")));
 
         while (now <= deadline) {
             if (valid()) {

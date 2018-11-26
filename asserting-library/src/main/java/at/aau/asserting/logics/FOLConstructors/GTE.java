@@ -11,4 +11,12 @@ public class GTE extends Formula {
         this.rhs = rhs;
     }
 
+    public String print() {
+        return String.format("(>= %s %s)", this.lhs.print(), this.rhs.print());
+    }
+
+    @Override
+    public Formula negate() {
+        return new LT(this.lhs.negate(), this.rhs.negate());
+    }
 }

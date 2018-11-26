@@ -9,4 +9,12 @@ public class Not extends Formula {
         this.formula = f;
     }
 
+    public String print() {
+        return String.format("(not %s)", this.formula.print());
+    }
+
+    @Override
+    public Formula negate() {
+        return formula;
+    }
 }

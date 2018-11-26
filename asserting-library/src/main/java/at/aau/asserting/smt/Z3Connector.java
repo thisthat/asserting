@@ -20,23 +20,26 @@ public class Z3Connector {
     public void check(Formula formula){
         //System.out.println("-=-=-=-=-=-=-=--=-");
         //System.out.println("formula: " + formula);
+        //System.out.println("tested: " + formula.negate().print());
         //System.out.println("-=-=-=-=-=-=-=--=-");
         //System.out.println("Fed into Z3");
-        String fed = this.model + formula;
-        String model = "";
+        String fed = this.model + formula.prepare();
+        //System.out.println(fed);
+        String counter = "";
         try {
-            File tmp = File.createTempFile("asserting-runtime-lib", "smt");
+            File tmp = File.createTempFile("asserting-runtime-lib", ".smt");
             tmp.deleteOnExit();
             FileUtils.write(tmp, fed, "UTF-8");
-            model = run(tmp.getAbsolutePath());
+            counter = run(tmp.getAbsolutePath());
         } catch (Exception ex){
             System.err.println(ex.getMessage());
             ex.printStackTrace();
         }
-        checkResult(model, formula.pretty());
+        checkResult(counter, formula.pretty());
     }
 
     private void checkResult(String result, String formula) {
+        //System.out.println("Result: " + result.substring(0, result.indexOf('\n') > 0 ? result.indexOf('/') : result.length()));
         if(result.startsWith("sat")){
             String counter = result.substring(3);
             throw new AssertingException(formula, counter);
@@ -54,7 +57,9 @@ public class Z3Connector {
         // Our argv[0] contains the program to run; remaining elements
         // of argv contain args for the target program. This is just
         // what is needed for the String[] form of exec.
-        p = r.exec("z3 -smt2 " + file);
+        String cmd = "z3 -smt2 " + file;
+        //System.out.println(cmd);
+        p = r.exec(cmd);
 
 
         // getInputStream gives an Input stream connected to
@@ -70,6 +75,7 @@ public class Z3Connector {
             System.err.println(e);
             e.printStackTrace();
         }
+        //System.out.println(sb.toString());
         return sb.toString();
     }
 }

@@ -11,4 +11,12 @@ public class OR extends Formula {
         this.rhs = rhs;
     }
 
+    public String print() {
+        return String.format("(or %s %s)", this.lhs.print(), this.rhs.print());
+    }
+
+    @Override
+    public Formula negate() {
+        return new AND( this.lhs.negate(), this.rhs.negate() );
+    }
 }

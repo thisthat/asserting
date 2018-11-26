@@ -3,6 +3,11 @@ package at.aau.asserting.logics.FOLConstructors;
 import at.aau.asserting.Formula;
 
 public class Exists extends Formula {
+    @Override
+    public String toString() {
+        return null;
+    }
+
     Variable var;
     Formula formula;
 
@@ -12,4 +17,13 @@ public class Exists extends Formula {
     }
 
 
+    @Override
+    public String print() {
+        return String.format("(exists ((%s Int)) %s)", var.print(), formula.print() );
+    }
+
+    @Override
+    public Formula negate() {
+        return new ForAll(var, formula.negate());
+    }
 }
