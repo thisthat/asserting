@@ -20,4 +20,9 @@ public class Const extends Formula {
     public Formula negate() {
         return this;
     }
+
+    @Override
+    public Formula noQuantifier() {
+        return this;
+    }
 }

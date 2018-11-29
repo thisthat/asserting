@@ -2,7 +2,7 @@ package at.aau.asserting.logics.FOLConstructors;
 
 import at.aau.asserting.Formula;
 
-public class ForAll extends Formula {
+public class ForAll extends Formula implements Quantifier {
     Variable var;
     Formula formula;
 
@@ -20,5 +20,11 @@ public class ForAll extends Formula {
     @Override
     public Formula negate() {
         return new Exists(var, formula.negate());
+    }
+
+
+    @Override
+    public Formula noQuantifier() {
+        return formula.noQuantifier();
     }
 }

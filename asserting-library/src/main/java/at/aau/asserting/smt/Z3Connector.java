@@ -18,35 +18,53 @@ public class Z3Connector {
     }
 
     public void check(Formula formula){
-        //System.out.println("-=-=-=-=-=-=-=--=-");
-        //System.out.println("formula: " + formula);
-        //System.out.println("tested: " + formula.negate().print());
-        //System.out.println("-=-=-=-=-=-=-=--=-");
-        //System.out.println("Fed into Z3");
         String fed = this.model + formula.prepare();
-        //System.out.println(fed);
-        String counter = "";
+        String counter = null;
+        try {
+            counter = run(createTmpFile(fed));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if(counter != null)
+            checkResult(counter, formula);
+    }
+
+    private void checkResult(String result, Formula formula) {
+        //System.out.println("Result: " + result.substring(0, result.indexOf('\n') > 0 ? result.indexOf('/') : result.length()));
+        if(result.startsWith("sat")){
+            String counter = result.substring(3);
+            String goodModel = validModel(formula);
+            System.out.println(goodModel);
+            throw new AssertingException(formula.pretty(), counter);
+        }
+    }
+
+    private String createTmpFile(String data){
         try {
             File tmp = File.createTempFile("asserting-runtime-lib", ".smt");
             tmp.deleteOnExit();
-            FileUtils.write(tmp, fed, "UTF-8");
-            counter = run(tmp.getAbsolutePath());
+            FileUtils.write(tmp, data, "UTF-8");
+            return tmp.getAbsolutePath();
         } catch (Exception ex){
             System.err.println(ex.getMessage());
             ex.printStackTrace();
         }
-        checkResult(counter, formula.pretty());
+        return null;
     }
 
-    private void checkResult(String result, String formula) {
-        //System.out.println("Result: " + result.substring(0, result.indexOf('\n') > 0 ? result.indexOf('/') : result.length()));
-        if(result.startsWith("sat")){
-            String counter = result.substring(3);
-            throw new AssertingException(formula, counter);
+    private String validModel(Formula f){
+        String m = this.model + f.noQuantifier().prepare(false);
+        String valid = "";
+        try {
+            valid = run(createTmpFile(m));
+        } catch (Exception ex){
+            System.err.println(ex.getMessage());
+            ex.printStackTrace();
         }
+        return valid;
     }
 
-    public static String run(String file) throws IOException {
+    public String run(String file) throws IOException {
 
         // A Runtime object has methods for dealing with the OS
         Runtime r = Runtime.getRuntime();
@@ -72,7 +90,7 @@ public class Z3Connector {
         try {
             p.waitFor();  // wait for process to complete
         } catch (InterruptedException e) {
-            System.err.println(e);
+            System.err.println(e.getMessage());
             e.printStackTrace();
         }
         //System.out.println(sb.toString());

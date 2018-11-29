@@ -20,4 +20,10 @@ public class Implies extends Formula {
     public Formula negate() {
         return new AND(this.lhs, this.rhs.negate());
     }
+
+
+    @Override
+    public Formula noQuantifier() {
+        return this;
+    }
 }

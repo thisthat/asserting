@@ -22,11 +22,18 @@ public abstract class Formula {
     }
 
     public String prepare() {
-        return String.format("(assert %s)\r\n%s", this.negate().print(), this.PostModel());
+        return prepare(true);
+    }
+
+    public String prepare(boolean negate) {
+        Formula f = negate ? this.negate() : this;
+        return String.format("(assert %s)\r\n%s", f.print(), this.PostModel());
     }
 
     @Override
     public String toString() {
         return this.print();
     }
+
+    public abstract Formula noQuantifier();
 }

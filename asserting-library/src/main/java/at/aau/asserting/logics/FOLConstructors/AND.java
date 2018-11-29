@@ -19,4 +19,9 @@ public class AND extends Formula {
     public Formula negate() {
         return new OR( this.lhs.negate(), this.rhs.negate() );
     }
+
+    @Override
+    public Formula noQuantifier() {
+        return this;
+    }
 }

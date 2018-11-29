@@ -19,4 +19,9 @@ public class GT extends Formula {
     public Formula negate() {
         return new LTE(this.lhs.negate(), this.rhs.negate());
     }
+
+    @Override
+    public Formula noQuantifier() {
+        return this;
+    }
 }

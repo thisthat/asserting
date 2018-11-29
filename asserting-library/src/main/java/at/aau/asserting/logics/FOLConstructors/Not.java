@@ -17,4 +17,9 @@ public class Not extends Formula {
     public Formula negate() {
         return formula;
     }
+
+    @Override
+    public Formula noQuantifier() {
+        return this;
+    }
 }

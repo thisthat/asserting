@@ -19,4 +19,10 @@ public class LT extends Formula {
     public Formula negate() {
         return new GTE(this.lhs.negate(), this.rhs.negate());
     }
+
+
+    @Override
+    public Formula noQuantifier() {
+        return this;
+    }
 }
