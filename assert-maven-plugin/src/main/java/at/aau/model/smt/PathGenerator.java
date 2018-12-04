@@ -24,7 +24,17 @@ public class PathGenerator {
     public List<Method> generate(Method m){
         original = m;
         models = new ArrayList<>();
-        models.add(m);
+        final long[] nAssertion = {1};
+        m.visit(new DefaultReducedVisitor(){
+            @Override
+            public void enterAssert(Assert elm) {
+                nAssertion[0]++;
+            }
+        });
+        for(int i = 0; i < nAssertion[0]; i++){
+            Method m1 = cloner.deepClone(original);
+            models.add(m1);
+        }
         for(Stm s : m.getBody()){
             convert(s);
         }

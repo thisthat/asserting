@@ -8,6 +8,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Z3Connector {
 
@@ -36,6 +40,57 @@ public class Z3Connector {
             String goodModel = validModel(formula);
             System.out.println(goodModel);
             throw new AssertingException(formula.pretty(), counter);
+        } else {
+            //check overflows
+            String f = this.model + formula.prepare(false);
+            String r = "";
+            try {
+                r = run(createTmpFile(f));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if(r != null && r.length() > 0){
+                Map<String, String> vars = new HashMap<>();
+                List<String> over = new ArrayList<>();
+                AssertingException.parsing(r, vars);
+                for(String var : formula.getVar()){
+                    String val = vars.get(var);
+                    if(val != null && val.equals("9223372036854775808")){
+                        over.add(var);
+                    }
+                }
+                String[] model = this.model.split("\n");
+                StringBuilder newModel = new StringBuilder();
+                for(String line : model){
+                    if(line.contains("(declare")){
+                        newModel.append(line).append("\n");
+                        continue;
+                    }
+                    boolean add = true;
+                    for(String v : over){
+                        if(line.contains("(assert (= " + v)){
+                            add = false;
+                        }
+                    }
+                    if(add)
+                        newModel.append(line).append("\n");
+                }
+                for(String v : over){
+                    newModel.append("(assert (= -9223372036854775808 " + v + "))").append("\n");
+                }
+                newModel.append(formula.noQuantifier().prepare());
+                try {
+                    result = run(createTmpFile(newModel.toString()));
+                    if(result.startsWith("sat")){
+                        String counter = result.substring(3);
+                        String goodModel = validModel(formula);
+                        System.out.println(goodModel);
+                        throw new AssertingException(formula.pretty(), counter);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 

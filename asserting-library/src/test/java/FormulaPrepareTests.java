@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FormulaPrepareTests {
 
-    String def = "\r\n(check-sat)\n" +
+    String def = "\r\n(maximize time)\n(check-sat)\n" +
             "(get-model)";
 
     @Test

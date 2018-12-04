@@ -2,6 +2,9 @@ package at.aau.asserting.logics.FOLConstructors;
 
 import at.aau.asserting.Formula;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Const extends Formula {
     String var;
 
@@ -24,5 +27,12 @@ public class Const extends Formula {
     @Override
     public Formula noQuantifier() {
         return this;
+    }
+
+    @Override
+    public List<String> getVar() {
+        List<String> out = new ArrayList<>();
+        out.add(var);
+        return out;
     }
 }

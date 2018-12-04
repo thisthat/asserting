@@ -24,7 +24,7 @@ public class AssertingException extends RuntimeException {
         this.validModel = validModel.replace("\n\n", "\n");
     }
 
-    private void parsing(String model, Map<String,String> save){
+    public static void parsing(String model, Map<String,String> save){
         String initModel = "(model";
         String initVar = "(define-fun";
         String endLine = ")\n";
@@ -44,7 +44,7 @@ public class AssertingException extends RuntimeException {
         } while(more);
     }
 
-    private String sanitize(String val) {
+    private static String sanitize(String val) {
         if(val.startsWith("(-")){
             val = "-" + val.substring(2, val.length()-1).trim();
         }

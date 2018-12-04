@@ -1,5 +1,4 @@
 import at.aau.ProcessFile;
-import at.aau.example.MyClass;
 import at.aau.model.MethodModel;
 import org.apache.maven.plugin.logging.SystemStreamLog;
 import org.junit.jupiter.api.Test;
@@ -41,9 +40,10 @@ public class MyTest {
         //System.out.println(out.get(1).getModel());
     }
 
+
     @Test
     void TestPoll() {
-        MyClass c = new MyClass();
+        at.aau.example.MyClass c = new at.aau.example.MyClass();
         c.poll(10);
     }
 }

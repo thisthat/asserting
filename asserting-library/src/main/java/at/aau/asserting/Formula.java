@@ -1,5 +1,7 @@
 package at.aau.asserting;
 
+import java.util.List;
+
 public abstract class Formula {
 
     private String preamble = "";
@@ -14,7 +16,7 @@ public abstract class Formula {
 
 
     public String PostModel(){
-        return "(check-sat)\n(get-model)";
+        return "(maximize time)\n(check-sat)\n(get-model)";
     }
 
     public String pretty() {
@@ -36,4 +38,6 @@ public abstract class Formula {
     }
 
     public abstract Formula noQuantifier();
+
+    public abstract List<String> getVar();
 }
