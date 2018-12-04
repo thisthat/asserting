@@ -42,11 +42,11 @@ import java.util.List;
  * Goal which creates the model of the source code
  *
  * @goal generate
- * @phase process-classes
+ * @phase compile
  * @configurator include-project-dependencies
  * @requiresDependencyResolution compile+runtime
  */
-@Mojo(name = "create-model", defaultPhase = LifecyclePhase.GENERATE_RESOURCES)
+@Mojo(name = "create-model", defaultPhase = LifecyclePhase.COMPILE)
 public class CreateModel
     extends AbstractMojo
 {
@@ -127,6 +127,19 @@ public class CreateModel
             getLog().debug(Arrays.toString(includedFiles));
             if (!outputDirectory.exists()) {
                 outputDirectory.mkdirs();
+            } else {
+                String[] files = outputDirectory.getAbsoluteFile().list();
+                if(files.length > 0){
+                    long count = 0;
+                    for(String f : files){
+                        if(f.endsWith(".smt"))
+                            count++;
+                    }
+                    if(count > 0) {
+                        getLog().info("Nothing to compile -- models already present");
+                        return;
+                    }
+                }
             }
             for (final String f : includedFiles) {
                 try {

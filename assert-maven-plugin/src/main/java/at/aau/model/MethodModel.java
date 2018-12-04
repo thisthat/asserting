@@ -36,7 +36,7 @@ public class MethodModel {
     }
 
     public String getModelName() {
-        return this.method.getFullName() + "_" + _assertion.getLine();
+        return this.method.getFullName() + "_" + _assertion.getLine() + ".smt";
     }
 
     public String getModel(){

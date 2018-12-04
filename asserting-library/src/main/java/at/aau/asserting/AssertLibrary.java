@@ -23,7 +23,7 @@ public class AssertLibrary {
 
     private static String getModelName() {
         StackTraceElement ste = Thread.currentThread().getStackTrace()[3];
-        return ste.getClassName() + "_" + ste.getMethodName() + "_" + ste.getLineNumber();
+        return ste.getClassName() + "_" + ste.getMethodName() + "_" + ste.getLineNumber() + ".smt";
     }
 
     private static String getCaller(){
