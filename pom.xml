@@ -7,7 +7,7 @@
     <groupId>at.aau</groupId>
     <artifactId>asserting</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0-FOL</version>
     <modules>
         <module>assert-maven-plugin</module>
         <module>test-plugin</module>

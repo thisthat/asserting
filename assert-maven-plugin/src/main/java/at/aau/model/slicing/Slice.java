@@ -395,7 +395,9 @@ public class Slice {
     private TimeElement valid(ASTRE r){
         if(r == null)
             return null;
-        int s = r.getStart();
+        TimeElement te = new TimeElement(r, TimeElement.Type.Assignment);
+        return te;
+        /*int s = r.getStart();
         int e = r.getEnd();
         int l = r.getLine();
         for(TimeElement te : this.timeStms){
@@ -403,7 +405,7 @@ public class Slice {
             if(stm.getLine() == l && stm.getStart() == s && stm.getEnd() == e)
                 return te;
         }
-        return null;
+        return null;*/
     }
 
     private Assignment handleAssignment(IASTRE stm) {
