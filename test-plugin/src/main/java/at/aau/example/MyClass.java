@@ -8,6 +8,7 @@ public class MyClass {
 
 
     public void poll(long timeout) {
+        long t = 10;
         // poll for io until the timeout expires
         long now = System.currentTimeMillis();
         long deadline = now + timeout;
