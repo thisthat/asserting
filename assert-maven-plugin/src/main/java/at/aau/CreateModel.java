@@ -124,7 +124,7 @@ public class CreateModel
         if (includedFiles == null || includedFiles.length == 0) {
             getLog().info("SKIP: There are no input files. " + getInputFilesToString());
         } else {
-            getLog().debug(Arrays.toString(includedFiles));
+            getLog().info(Arrays.toString(includedFiles));
             if (!outputDirectory.exists()) {
                 outputDirectory.mkdirs();
             } else {
@@ -144,7 +144,7 @@ public class CreateModel
             for (final String f : includedFiles) {
                 try {
                     final Path input = Paths.get(f);
-                    ProcessFile pf = new ProcessFile(input, basedir, getLog(), c.toString());
+                    ProcessFile pf = new ProcessFile(input, basedir, getLog(), c.toString(), timeout);
                     List<MethodModel> models = pf.getOutputFiles();
                     processResults(models);
                 } catch (Exception ex) {

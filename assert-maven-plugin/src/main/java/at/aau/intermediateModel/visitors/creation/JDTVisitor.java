@@ -127,11 +127,11 @@ public class JDTVisitor extends ASTVisitor {
 		try {
 			a = new Java2AST(filename, true, projectPath, Arrays.asList(classpath.split(":")));
 		}
-		catch (IOException e) {}
-		catch (UnparsableException e) {
+		catch (Exception e) { return new ArrayList<>(); }
+		//catch (UnparsableException e) {
 			//cannot parse the file
-			return new ArrayList<>();
-		}
+		//	return new ArrayList<>();
+		//}
 		CompilationUnit result = a.getContextJDT();
 		JDTVisitor v = new JDTVisitor(result, filename);
 		result.accept(v);

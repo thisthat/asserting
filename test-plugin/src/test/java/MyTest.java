@@ -31,7 +31,7 @@ public class MyTest {
     void TestProcessFile() {
         String input = "/Users/giovanni/repository/asserting/test-plugin/src/main/java/at/aau/example/MyClass.java";
         String base = "/Users/giovanni/repository/asserting/test-plugin/";
-        ProcessFile pf = new ProcessFile(Paths.get(input), base, new SystemStreamLog(), "");
+        ProcessFile pf = new ProcessFile(Paths.get(input), base, new SystemStreamLog(), "",1);
         List<MethodModel> out = pf.getOutputFiles();
         System.out.println(out.get(0).getModelName());
         assertEquals(2, out.size());

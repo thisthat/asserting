@@ -122,6 +122,7 @@
                     <filters>
                         <filter>**/main/**/*.java</filter>
                     </filters>
+                    <timeout>1</timeout>
                 </configuration>
                 <executions>
                     <execution>

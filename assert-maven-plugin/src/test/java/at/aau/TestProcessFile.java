@@ -15,7 +15,8 @@ public class TestProcessFile {
                 Paths.get("/Users/giovanni/repository/benchmark/manual/12/approach/src/main/java/MyClass.java"),
                 "/Users/giovanni/repository/benchmark/manual/12/approach",
                 new DefaultLog(new ConsoleLogger()),
-                ""
+                "",
+                1
         );
     }
 }

@@ -9,11 +9,41 @@ import org.apache.maven.plugin.logging.Log;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.*;
 
 public class ProcessFile {
     List<MethodModel> out = new ArrayList<>();
 
-    public ProcessFile(Path input, String basedir, Log log, String classpath) {
+    String classpath;
+    Path input;
+    String basedir;
+    Log log;
+
+
+    public ProcessFile(Path input, String basedir, Log log, String classpath, long timeout) {
+        this.input = input;
+        this.basedir = basedir;
+        this.classpath = classpath;
+        this.log = log;
+        //doWork();
+        ExecutorService executor = Executors.newFixedThreadPool(1);
+        Future<Void> f = (Future<Void>) executor.submit(() -> {
+            doWork();
+        });
+        try {
+            f.get(timeout, TimeUnit.SECONDS);
+        } catch (InterruptedException | TimeoutException | ExecutionException e) {
+            e.printStackTrace();
+        } finally {
+          executor.shutdownNow();
+        }
+    }
+
+    public List<MethodModel> getOutputFiles() {
+        return out;
+    }
+
+    private void doWork(){
         if(classpath.length() == 0){
             classpath = System.getProperty("java.class.path");
         }
@@ -30,9 +60,5 @@ public class ProcessFile {
                 System.out.println(x);
             }
         }
-    }
-
-    public List<MethodModel> getOutputFiles() {
-        return out;
     }
 }
