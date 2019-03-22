@@ -38,7 +38,7 @@ public class Z3Connector {
         if(result.startsWith("sat")){
             String counter = result.substring(3);
             String goodModel = validModel(formula);
-            System.out.println(goodModel);
+            //System.out.println(goodModel);
             throw new AssertingException(formula.pretty(), counter);
         } else {
             //check overflows
@@ -84,7 +84,7 @@ public class Z3Connector {
                     if(result.startsWith("sat")){
                         String counter = result.substring(3);
                         String goodModel = validModel(formula);
-                        System.out.println(goodModel);
+                        //System.out.println(goodModel);
                         throw new AssertingException(formula.pretty(), counter);
                     }
                 } catch (IOException e) {

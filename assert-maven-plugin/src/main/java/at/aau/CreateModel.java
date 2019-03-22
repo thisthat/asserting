@@ -83,6 +83,12 @@ public class CreateModel
     private long timeout;
 
     /**
+     * Boolean if add recovery or not
+     */
+    @Parameter(defaultValue = "true", property = "timeout", required = true)
+    private boolean recovery;
+
+    /**
      * A specific <code>fileSet</code> rule to select files and directories.
      * Fileset spec: https://maven.apache.org/shared/file-management/fileset.html
      */
@@ -144,7 +150,7 @@ public class CreateModel
             for (final String f : includedFiles) {
                 try {
                     final Path input = Paths.get(f);
-                    ProcessFile pf = new ProcessFile(input, basedir, getLog(), c.toString(), timeout);
+                    ProcessFile pf = new ProcessFile(input, basedir, getLog(), c.toString(), timeout, recovery);
                     List<MethodModel> models = pf.getOutputFiles();
                     processResults(models);
                 } catch (Exception ex) {

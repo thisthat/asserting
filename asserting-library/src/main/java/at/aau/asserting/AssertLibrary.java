@@ -2,6 +2,7 @@ package at.aau.asserting;
 
 import java.io.InputStream;
 import java.nio.charset.Charset;
+import java.util.Map;
 
 import at.aau.asserting.smt.Z3Connector;
 import org.apache.commons.io.IOUtils;
@@ -50,7 +51,18 @@ public class AssertLibrary {
         if(f != null){
             return f;
         }
-        return System.getProperty("af");
+        f = System.getProperty("af");
+        if(f != null){
+            return f;
+        }
+        Map<String,String> env = System.getenv();
+        if(env.containsKey("asserting.filters")){
+            return env.get("asserting.filters");
+        }
+        if(env.containsKey("af")){
+            return env.get("af");
+        }
+        return null;
     }
 
     private static String loadModel(String modelName){
@@ -58,7 +70,7 @@ public class AssertLibrary {
             InputStream s = AssertLibrary.class.getClassLoader().getResourceAsStream(modelName);
             return IOUtils.toString(s, Charset.defaultCharset());
         } catch (Exception ex){
-            System.err.println(ex.getMessage());
+            System.err.println("File " + modelName + " not found!");
         }
         return "";
     }

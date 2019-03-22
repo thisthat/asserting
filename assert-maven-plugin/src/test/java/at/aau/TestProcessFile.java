@@ -11,12 +11,12 @@ import java.util.logging.Logger;
 public class TestProcessFile {
     @Test
     public void SimpleTest() throws Exception {
-        ProcessFile pf = new ProcessFile(
-                Paths.get("/Users/giovanni/repository/benchmark/manual/12/approach/src/main/java/MyClass.java"),
-                "/Users/giovanni/repository/benchmark/manual/12/approach",
-                new DefaultLog(new ConsoleLogger()),
-                "",
-                1
-        );
+//        ProcessFile pf = new ProcessFile(
+//                Paths.get("/Users/giovanni/repository/benchmark/manual/12/approach/src/main/java/MyClass.java"),
+//                "/Users/giovanni/repository/benchmark/manual/12/approach",
+//                new DefaultLog(new ConsoleLogger()),
+//                "",
+//                1
+//        );
     }
 }
