@@ -85,8 +85,20 @@ public class CreateModel
     /**
      * Boolean if add recovery or not
      */
-    @Parameter(defaultValue = "true", property = "timeout", required = true)
+    @Parameter(defaultValue = "true", property = "recovery", required = true)
     private boolean recovery;
+
+    /**
+     * Boolean if model time properties or not
+     */
+    @Parameter(defaultValue = "true", property = "timeEnabled", required = true)
+    private boolean timeEnabled;
+
+    /**
+     * Boolean if model mathematical expressions or not
+     */
+    @Parameter(defaultValue = "true", property = "mathEnabled", required = true)
+    private boolean mathEnabled;
 
     /**
      * A specific <code>fileSet</code> rule to select files and directories.
@@ -112,6 +124,8 @@ public class CreateModel
     }
 
     public void execute() {
+
+        this.setOption();
 
         StringBuilder c = new StringBuilder();
         for(Artifact a : this.project.getDependencyArtifacts()){
@@ -165,6 +179,12 @@ public class CreateModel
         getLog().info(String.format("Converted %d/%d (%.2f%%) files", succeed, s, ps));
         getLog().info(String.format("Failed %d/%d (%.2f%%) files", failed,  s, pf));
         getLog().info(String.format("Skipped %d/%d (%.2f%%) files", s - (failed + succeed),  s, pk));
+    }
+
+    private void setOption() {
+        Options.setMathEnabled(mathEnabled);
+        Options.setMathEnabled(timeEnabled);
+        Options.setMathEnabled(recovery);
     }
 
     private void processResults(List<MethodModel> results) {
