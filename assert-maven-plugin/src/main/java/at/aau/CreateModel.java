@@ -183,8 +183,8 @@ public class CreateModel
 
     private void setOption() {
         Options.setMathEnabled(mathEnabled);
-        Options.setMathEnabled(timeEnabled);
-        Options.setMathEnabled(recovery);
+        Options.setTimeEnabled(timeEnabled);
+        Options.setRecoveryEnabled(recovery);
     }
 
     private void processResults(List<MethodModel> results) {

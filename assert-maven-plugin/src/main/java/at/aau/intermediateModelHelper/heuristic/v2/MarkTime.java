@@ -1,5 +1,6 @@
 package at.aau.intermediateModelHelper.heuristic.v2;
 
+import at.aau.Options;
 import at.aau.intermediateModel.structure.ASTRE;
 import at.aau.intermediateModelHelper.CheckExpression;
 import at.aau.intermediateModelHelper.envirorment.Env;
@@ -14,7 +15,8 @@ public class MarkTime extends SearchTimeConstraint {
 
 	@Override
 	public void next(ASTRE stm, Env env) {
-		CheckExpression.checkRE(stm,env);
+		if(Options.isTimeEnabled())
+			CheckExpression.checkRE(stm,env);
 	}
 
 
