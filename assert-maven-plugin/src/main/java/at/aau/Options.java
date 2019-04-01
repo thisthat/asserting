@@ -39,4 +39,9 @@ public class Options {
     public static void setTimeEnabled(boolean f){
         getInstance().isTimeEnable = f;
     }
+
+    public static boolean isMath(String type) {
+        return getInstance().isMathEnable && type != null &&
+            (type.equals("int") || type.equals("long") ||type.equals("Integer") ||type.equals("Long"));
+    }
 }

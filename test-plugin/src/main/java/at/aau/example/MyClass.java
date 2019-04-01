@@ -1,6 +1,7 @@
 package at.aau.example;
 
 import at.aau.asserting.AssertLibrary;
+import at.aau.asserting.AssertingException;
 
 import static at.aau.asserting.logics.FOL.*;
 
@@ -11,14 +12,8 @@ public class MyClass {
         // poll for io until the timeout expires
         long now = System.currentTimeMillis();
         long deadline = now + timeout;
-        try {
- AssertLibrary.assertFormula(ForAll("timeout", LTE(now, "deadline")));
-} catch (at.aau.asserting.AssertingException assertingException) {
-timeout = assertingException.aCorrectValueFor("timeout");
-now = assertingException.aCorrectValueFor("now");
-deadline = assertingException.aCorrectValueFor("deadline");
-}
-
+        long t0 = 100;
+        AssertLibrary.assertFormula(ForAll("timeout", LTE(now, "deadline")));
         while (now <= deadline) {
             if (valid()) {
                 now = System.currentTimeMillis();
@@ -29,13 +24,9 @@ deadline = assertingException.aCorrectValueFor("deadline");
             }
             // Note that because the network client is shared with the background heartbeat thread,
             // we do not want to block in poll longer than the time to the next heartbeat.
-            long remaining = Math.max(0, deadline - now);
-            try {
- AssertLibrary.assertFormula(ForAll("remaining", GT("remaining", 0)));
-} catch (at.aau.asserting.AssertingException assertingException) {
-remaining = assertingException.aCorrectValueFor("remaining");
-}
-
+            long remaining;
+            remaining = Math.max(0, deadline - now);
+            AssertLibrary.assertFormula(ForAll("remaining", GT("remaining", 0)));
             now = System.currentTimeMillis();
 
         }

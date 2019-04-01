@@ -1,5 +1,6 @@
 package at.aau.intermediateModelHelper.envirorment;
 
+import at.aau.Options;
 import at.aau.intermediateModel.interfaces.IASTRE;
 import at.aau.intermediateModel.interfaces.IASTVar;
 import at.aau.intermediateModel.structure.ASTAttribute;
@@ -366,6 +367,11 @@ public class Env {
 	 * @param v	Variable in object
 	 */
 	public void addVar(IASTVar v){
+		if(Options.isMathEnabled()){
+			if(Options.isMath(v.getTypePointed())){
+				v.setTimeCritical(true);
+			}
+		}
 		if(varList.contains(v)){
 			IASTVar oldvar = getVar(v.getName());
 			oldvar.setTimeCritical( oldvar.isTimeCritical() || v.isTimeCritical() );

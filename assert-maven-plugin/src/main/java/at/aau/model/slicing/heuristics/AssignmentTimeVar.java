@@ -1,5 +1,6 @@
 package at.aau.model.slicing.heuristics;
 
+import at.aau.Options;
 import at.aau.intermediateModel.interfaces.IASTRE;
 import at.aau.intermediateModel.interfaces.IASTStm;
 import at.aau.intermediateModel.interfaces.IASTVar;
@@ -45,9 +46,16 @@ public class AssignmentTimeVar extends SearchTimeConstraint {
 			@Override
 			public void enterASTVariableDeclaration(ASTVariableDeclaration elm) {
 				IASTVar var = env.getVar(elm.getNameString());
-				if(var != null && elm.getExpr() != null && elm.getExpr().isTimeCritical()){
-					var.setTimeCritical(true);
-					mark(stm);
+				if(Options.isTimeEnabled()) {
+					if (var != null && elm.getExpr() != null && elm.getExpr().isTimeCritical()) {
+						var.setTimeCritical(true);
+						mark(stm);
+					}
+				} else if(Options.isMathEnabled()){
+					if (var != null && elm.getExpr() != null && var.isTimeCritical()) {
+						var.setTimeCritical(true);
+						mark(stm);
+					}
 				}
 			}
 
