@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>asserting</artifactId>
+        <artifactId>extract-class-path</artifactId>
         <groupId>at.aau</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
@@ -100,14 +100,8 @@
         </dependency>
         <dependency>
             <groupId>at.aau</groupId>
-            <artifactId>assert-maven-plugin</artifactId>
+            <artifactId>extract-classpath-maven-plugin</artifactId>
             <version>1.0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>at.aau</groupId>
-            <artifactId>asserting-library</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
 
@@ -116,20 +110,14 @@
         <plugins>
             <plugin>
                 <groupId>at.aau</groupId>
-                <artifactId>assert-maven-plugin</artifactId>
+                <artifactId>extract-classpath-maven-plugin</artifactId>
                 <version>1.0.1</version>
-                <configuration>
-                    <filters>
-                        <filter>**/main/**/*.java</filter>
-                    </filters>
-                    <timeout>1</timeout>
-                    <recovery>true</recovery>
-                </configuration>
+
                 <executions>
                     <execution>
                         <id>test-exec</id>
                         <goals>
-                            <goal>create-model</goal>
+                            <goal>extract-cp</goal>
                         </goals>
                     </execution>
                 </executions>

@@ -5,13 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>at.aau</groupId>
-    <artifactId>asserting</artifactId>
+    <artifactId>extract-class-path</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>assert-maven-plugin</module>
+        <module>extract-classpath-maven-plugin</module>
         <module>test-plugin</module>
-        <module>asserting-library</module>
     </modules>
 
 
