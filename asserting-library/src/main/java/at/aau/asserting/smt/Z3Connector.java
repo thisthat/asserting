@@ -2,6 +2,7 @@ package at.aau.asserting.smt;
 
 import at.aau.asserting.AssertingException;
 import at.aau.asserting.Formula;
+import at.aau.asserting.Options;
 import org.apache.commons.io.FileUtils;
 
 import java.io.BufferedReader;
@@ -39,7 +40,7 @@ public class Z3Connector {
             String counter = result.substring(3);
             String goodModel = validModel(formula);
             //System.out.println(goodModel);
-            throw new AssertingException(formula.pretty(), counter);
+            throw new AssertingException(formula.pretty(), counter, goodModel);
         } else {
             //check overflows
             String f = this.model + formula.prepare(false);
@@ -96,6 +97,10 @@ public class Z3Connector {
 
     private String createTmpFile(String data){
         try {
+            if(Options.isVerbose() || Options.isPrintModel()) {
+                System.err.println("Processing: ");
+                System.err.println(data);
+            }
             File tmp = File.createTempFile("asserting-runtime-lib", ".smt");
             tmp.deleteOnExit();
             FileUtils.write(tmp, data, "UTF-8");

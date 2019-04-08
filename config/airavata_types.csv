@@ -1,0 +1,4 @@
+Class;Name;Signature;Ret Type
+org.apache.airavata.cloud.aurora.client.sdk.JobInstanceUpdateEvent;getTimestampMs;;long
+org.apache.airavata.cloud.aurora.client.sdk.TaskEvent;getTimestamp;;long
+org.apache.airavata.cloud.aurora.client.sdk.JobUpdateEvent;getTimestampMs;;long

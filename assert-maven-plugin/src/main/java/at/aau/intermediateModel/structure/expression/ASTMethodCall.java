@@ -4,6 +4,7 @@ import at.aau.intermediateModel.interfaces.ASTREVisitor;
 import at.aau.intermediateModel.interfaces.ASTVisitor;
 import at.aau.intermediateModel.interfaces.IASTRE;
 import at.aau.intermediateModel.interfaces.IASTStm;
+import at.aau.intermediateModelHelper.envirorment.Env;
 import at.aau.intermediateModelHelper.envirorment.temporalTypes.TemporalTypes;
 
 import java.util.ArrayList;
@@ -15,12 +16,22 @@ import java.util.List;
  */
 public class ASTMethodCall extends IASTStm implements IASTRE {
 
+	private Env vars = new Env();
+
     public void setTypeParametersPointed(List<String> parameterTypes) {
 		this.typeParPointed = parameterTypes;
     }
 
 	public List<String> getTypeParPointed() {
 		return typeParPointed;
+	}
+
+	public void addVar(Env env) {
+    	vars = env;
+	}
+
+	public Env getVars() {
+		return vars;
 	}
 
 	public enum TimeType {

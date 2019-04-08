@@ -101,6 +101,12 @@ public class CreateModel
     private boolean mathEnabled;
 
     /**
+     * Boolean for verbose output
+     */
+    @Parameter(defaultValue = "false", property = "verbose", required = true)
+    private boolean verbose;
+
+    /**
      * A specific <code>fileSet</code> rule to select files and directories.
      * Fileset spec: https://maven.apache.org/shared/file-management/fileset.html
      */
@@ -164,9 +170,9 @@ public class CreateModel
             for (final String f : includedFiles) {
                 try {
                     final Path input = Paths.get(f);
-                    ProcessFile pf = new ProcessFile(input, basedir, getLog(), c.toString(), timeout, recovery);
+                    ProcessFile pf = new ProcessFile(input, basedir, getLog(), c.toString());
                     List<MethodModel> models = pf.getOutputFiles();
-                    processResults(models);
+                    processResults(input, models);
                 } catch (Exception ex) {
                     getLog().error(ex);
                 }
@@ -185,13 +191,20 @@ public class CreateModel
         Options.setMathEnabled(mathEnabled);
         Options.setTimeEnabled(timeEnabled);
         Options.setRecoveryEnabled(recovery);
+        Options.setTimeout(timeout);
+        Options.setVerbose(verbose);
     }
 
-    private void processResults(List<MethodModel> results) {
+    private void processResults(Path input, List<MethodModel> results) {
         //save file
         boolean failure = false;
+        if(Options.isVerbose())
+            getLog().info("Processing [" + results.size() + "] results of: " + input.toAbsolutePath().toString());
         for(MethodModel model : results) {
-            getLog().info(String.format("Saving: %s in %s", model.getModelName(), outputDirectory));
+            String msg = String.format("Saving: %s in %s", model.getModelName(), outputDirectory);
+            getLog().info(msg);
+            getLog().warn(msg);
+            System.out.println(msg);
             try (PrintWriter out = new PrintWriter(outputDirectory + "/" + model.getModelName())) {
                 out.println(model.getModel());
             } catch (FileNotFoundException e) {
@@ -209,7 +222,8 @@ public class CreateModel
         this.inputFiles = new FileSet();
         this.inputFiles.addInclude("**/*.java");
         this.inputFiles.setDirectory(".");
-        getLog().info("'inputFiles' is not configured, using defaults: " + getInputFilesToString());
+        if(Options.isVerbose())
+            getLog().info("'inputFiles' is not configured, using defaults: " + getInputFilesToString());
     }
     private void setFilters() {
         this.inputFiles = new FileSet();
@@ -217,7 +231,8 @@ public class CreateModel
             this.inputFiles.addInclude(filter);
         }
         this.inputFiles.setDirectory(this.basedir);
-        getLog().info("'inputFiles' is configured using: " + getInputFilesToString());
+        if(Options.isVerbose())
+            getLog().info("'inputFiles' is configured using: " + getInputFilesToString());
     }
 
     private String getInputFilesToString() {

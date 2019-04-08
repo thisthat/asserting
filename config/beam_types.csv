@@ -1,0 +1,7 @@
+Class;Name;Signature;Ret Type
+org.apache.beam.examples.WindowedWordCount.DefaultToCurrentSystemTime;create;PipelineOptions;long
+org.apache.beam.sdk.io.gcp.pubsub.PubsubUnboundedSource.PubsubCheckpoint;now;PubsubReader;long
+org.apache.beam.sdk.io.gcp.pubsub.PubsubUnboundedSource.PubsubReader;now;;long
+org.apache.beam.sdk.io.kafka.ConsumerSpEL;getRecordTimestamp;ConsumerRecord;long
+org.apache.beam.runners.flink.translation.wrappers.streaming.io.UnboundedSourceWrapper;getTimeToNextWatermark;long;long
+com.google.api.client.util.Clock;currentTimeMillis;;long

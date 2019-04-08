@@ -21,7 +21,7 @@ public class Recovery {
         c.visit(new DefaultASTVisitor(){
             @Override
             public void enterASTMethodCall(ASTMethodCall elm) {
-                if(elm.getClassPointed().equals("at.aau.asserting.AssertLibrary")){
+                if(elm.getClassPointed() != null && elm.getClassPointed().equals("at.aau.asserting.AssertLibrary")){
                     out.add(new CorrectionPoint(elm));
                 }
             }
@@ -44,7 +44,8 @@ public class Recovery {
                 //edit
                 StringBuilder sb = new StringBuilder();
                 for(String v : c.getVars()){
-                    sb.append(v).append(" = assertingException.aCorrectValueFor(\"").append(v).append("\");\n");
+                    sb.append(v).append(" = assertingException.aCorrectValueFor(\"").append(sanitize(v)).append("\",")
+                        .append(v).append(");\n");
                 }
 
                 //writing
@@ -52,7 +53,7 @@ public class Recovery {
                 try (BufferedWriter writer = Files.newBufferedWriter(path))
                 {
                     writer.write(init);
-                    writer.write("try {\n ");
+                    writer.write("try {  ");
                     writer.write(edit);
                     writer.write("\n} catch (at.aau.asserting.AssertingException assertingException) {\n");
                     writer.write(sb.toString());
@@ -65,5 +66,12 @@ public class Recovery {
             System.err.println("Cannot open file: " + file);
         }
 
+    }
+
+    private static String sanitize(String v) {
+        if(v.contains(".")){
+            return v.substring(v.lastIndexOf(".")).replace(".", "");
+        }
+        return v;
     }
 }

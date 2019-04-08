@@ -10,7 +10,6 @@ import org.apache.maven.plugin.logging.Log;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.*;
 
@@ -23,19 +22,22 @@ public class ProcessFile {
     Log log;
     boolean recovery;
 
-    public ProcessFile(Path input, String basedir, Log log, String classpath, long timeout, boolean recovery) {
+    public ProcessFile(Path input, String basedir, Log log, String classpath) {
+        if(Options.isVerbose()) {
+            log.error("Input: " + input.toAbsolutePath().toString());
+            log.error("Basedir: " + basedir);
+            log.error("ClassPath: " + classpath);
+        }
         this.input = input;
         this.basedir = basedir;
         this.classpath = classpath;
         this.log = log;
-        this.recovery = recovery;
+        this.recovery = Options.isRecoveryEnabled();
         //doWork();
         ExecutorService executor = Executors.newFixedThreadPool(1);
-        Future<Void> f = (Future<Void>) executor.submit(() -> {
-            doWork();
-        });
+        Future<?> f = executor.submit(this::doWork);
         try {
-            f.get(timeout, TimeUnit.SECONDS);
+            f.get(Options.getTimeout(), TimeUnit.SECONDS);
         } catch (InterruptedException | TimeoutException | ExecutionException e) {
             e.printStackTrace();
         } finally {
@@ -54,24 +56,23 @@ public class ProcessFile {
         List<ASTClass> cs = JDTVisitor.parse(input.toAbsolutePath().toString(), basedir, classpath);
         log.debug(input.toAbsolutePath().toString());
         log.debug(basedir);
-        List<CorrectionPoint> correctionPoint = new ArrayList();
+        List<CorrectionPoint> correctionPoint = new ArrayList<>();
         for(ASTClass c : cs){
             ClassAnalyzer ca = new ClassAnalyzer(c);
             ca.setGetModel(true);
             try {
-                out = ca.getSMT();
+                out.addAll(ca.getSMT());
                 if(recovery){
                     correctionPoint.addAll(Recovery.findPoint(c));
                 }
             } catch (Exception x) {
                 System.out.println("Error In file " + c.getPath());
                 System.out.println(x);
+                x.printStackTrace(System.out);
             }
         }
         if(recovery) {
             Recovery.recoverFile(input.toAbsolutePath().toString(), correctionPoint);
-
-
         }
     }
 }

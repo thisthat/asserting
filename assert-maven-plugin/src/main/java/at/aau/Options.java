@@ -7,6 +7,9 @@ public class Options {
     private boolean isMathEnable = false;
     private boolean isTimeEnable = false;
     private boolean isRecoveryEnable = false;
+    private boolean isVerbose = false;
+    private long timeout = 1000;
+
 
     private Options(){}
 
@@ -19,6 +22,22 @@ public class Options {
             }
         }
         return instance;
+    }
+
+    public static boolean isVerbose() {
+        return getInstance().isVerbose;
+    }
+
+    public static void setVerbose(boolean verbose) {
+        getInstance().isVerbose = verbose;
+    }
+
+    public static long getTimeout() {
+        return getInstance().timeout;
+    }
+
+    public static void setTimeout(long timeout) {
+        getInstance().timeout = timeout;
     }
 
     public static boolean isMathEnabled(){

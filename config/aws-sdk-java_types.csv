@@ -1,0 +1,13 @@
+Class;Name;Signature;Ret Type
+com.amazonaws.metrics.ByteThroughputHelper;startTiming;;long
+com.amazonaws.util.TimingInfo;getStartTime;;long
+com.amazonaws.util.TimingInfo;getEndEpochTimeMilliIfKnown;;long
+com.amazonaws.util.TimingInfo;durationMilliOf;long,long;long
+com.amazonaws.util.DateUtils;numberOfDaysSinceEpoch;long;long
+com.amazonaws.http.AmazonHttpClient.RequestExecutor;parseClockSkewOffset;org.apache.http.HttpResponse,SdkBaseException;long
+com.amazonaws.metrics.internal.cloudwatch.spi.RequestMetricTransformer.Utils;endTimeMilli;TimingInfo;long
+com.amazonaws.services.sqs.buffered.QueueBufferConfig;getMaxBatchOpenMs;;long
+com.amazonaws.util.TimingInfo;getStartTimeNano;;long
+com.amazonaws.util.TimingInfo;getEndTime;;long
+com.amazonaws.util.TimingInfo;getEndEpochTimeMilli;;long
+com.amazonaws.services.cloudsearchdomain.model.SearchStatus;getTimems;;long

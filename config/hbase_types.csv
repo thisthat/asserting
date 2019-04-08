@@ -1,0 +1,15 @@
+Class;Name;Signature;Ret Type
+org.apache.hadoop.hbase.util.TimeOffsetEnvironmentEdge;currentTime;;long
+org.apache.hadoop.hbase.Waiter;waitFor;Configuration,long,long,boolean,Predicate;long
+org.apache.hadoop.hbase.util.EnvironmentEdgeManager;currentTime;;long
+org.apache.hadoop.hbase.util.DefaultEnvironmentEdge;currentTime;;long
+org.apache.hadoop.hbase.ScheduledChore;getTimeBetweenRuns;;long
+org.apache.hadoop.hbase.ScheduledChore;getMaximumAllowedTimeBetweenRuns;;long
+org.apache.hadoop.hbase.ScheduledChore;getTimeOfLastRun;;long
+org.apache.hadoop.hbase.ScheduledChore;getTimeOfThisRun;;long
+org.apache.hadoop.hbase.util.EnvironmentEdge;currentTime;;long
+org.apache.hadoop.hbase.io.hadoopbackport.ThrottledInputStream;calSleepTimeMs;;long
+org.apache.hadoop.hbase.util.IncrementingEnvironmentEdge;currentTime;;long
+org.apache.hadoop.hbase.util.IncrementingEnvironmentEdge;incrementTime;;long
+org.apache.hadoop.hbase.util.ManualEnvironmentEdge;currentTime;;long
+org.apache.hadoop.hbase.shaded.protobuf.generated.LockServiceProtos.LockHeartbeatResponseOrBuilder;getTimeoutMs;;long

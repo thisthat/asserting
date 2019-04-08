@@ -1,0 +1,7 @@
+Class;Name;Signature;Ret Type
+org.eclipse.jetty.http.HttpCookie;getMaxAge;;long
+org.eclipse.jetty.monitor.ThreadMonitor;getScanInterval;;long
+org.eclipse.jetty.monitor.ThreadMonitor;getLogInterval;;long
+org.eclipse.jetty.annotations.AnnotationConfiguration.TimeStatistic;getStart;;long
+org.eclipse.jetty.annotations.AnnotationConfiguration.TimeStatistic;getEnd;;long
+org.eclipse.jetty.annotations.AnnotationConfiguration.TimeStatistic;getElapsed;;long

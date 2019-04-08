@@ -1,0 +1,9 @@
+Class;Name;Signature;Ret Type
+org.apache.flume.formatter.output.DefaultPathManager;getSeriesTimestamp;;long
+org.apache.flume.sink.FailoverSinkProcessor.FailedSink;getRefresh;;long
+org.apache.flume.Clock;currentTimeMillis;;long
+org.apache.flume.SystemClock;currentTimeMillis;;long
+org.apache.flume.source.SpoolDirectorySource.SpoolDirectoryRunnable;waitAndGetNewBackoffInterval;int;long
+org.apache.flume.sink.elasticsearch.ElasticSearchSink;parseTTL;String;long
+org.apache.flume.sink.hive.HiveWriter;getLastUsed;;long
+org.apache.flume.sink.elasticsearch.TimestampedEvent;getTimestamp;;long

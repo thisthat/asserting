@@ -1,0 +1,6 @@
+Class;Name;Signature;Ret Tytpe
+com.hazelcast.util.JumpingSystemClock;currentTimeMillis;;long
+com.hazelcast.util.Clock;currentTimeMillis;;long
+com.hazelcast.util.Clock.ClockImpl;currentTimeMillis;;long
+com.hazelcast.util.Clock.SystemClock;currentTimeMillis;;long
+com.hazelcast.util.Clock.SystemOffsetClock;currentTimeMillis;;long

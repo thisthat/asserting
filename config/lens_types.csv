@@ -1,0 +1,6 @@
+Class;Name;Signature;Ret Type
+org.apache.lens.server.api.retry.ImmediateRetryHandler;getOperationNextTime;FC;long
+org.apache.lens.server.api.query.QueryContext;hasTimedout;;long
+org.apache.lens.server.api.query.PreparedQueryContext;getDelay;TimeUnit;long
+org.apache.lens.driver.hive.HiveDriver.ExpirableConnection;getDelay;TimeUnit;long
+org.apache.lens.server.api.retry.BackOffRetryHandler;getOperationNextTime;FC;long

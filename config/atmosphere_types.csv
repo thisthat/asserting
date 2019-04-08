@@ -1,0 +1,9 @@
+Class;Name;Signature;Ret Type
+org.atmosphere.runtime.DefaultBroadcaster;translateTimeUnit;long,TimeUnit;long
+org.atmosphere.websocket.WebSocket;lastWriteTimeStampInMilliseconds;;long
+org.atmosphere.interceptor.AtmosphereResourceStateRecovery.BroadcasterTracker;lastTick;;long
+org.atmosphere.interceptor.AtmosphereResourceLifecycleInterceptor;timeoutInSeconds;;long
+org.atmosphere.runtime.BroadcasterLifeCyclePolicy;getTimeout;;int
+org.atmosphere.runtime.AtmosphereRequestImpl.CompletionAwareAsyncContext;getTimeout;;long
+org.atmosphere.runtime.AtmosphereRequestImpl.NoOpsAsyncContext;getTimeout;;long
+org.atmosphere.util.ChunkConcatReaderPool;getTimeout;;long
