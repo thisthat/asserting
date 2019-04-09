@@ -5,6 +5,7 @@ import at.aau.model.slicing.model.visitor.ReducedVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by giovanni on 11/07/2017.
@@ -59,9 +60,9 @@ public class Method extends Stm {
 
         Method method = (Method) o;
         if(!super.equals(o)) return false;
-        if (body != null ? !body.equals(method.body) : method.body != null) return false;
-        if (name != null ? !name.equals(method.name) : method.name != null) return false;
-        return signature != null ? signature.equals(method.signature) : method.signature == null;
+        if (!Objects.equals(body, method.body)) return false;
+        if (!Objects.equals(name, method.name)) return false;
+        return Objects.equals(signature, method.signature);
     }
 
     @Override

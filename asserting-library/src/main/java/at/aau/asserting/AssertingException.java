@@ -8,10 +8,6 @@ public class AssertingException extends RuntimeException {
     private String validModel;
     Map<String,String> correctValue = new HashMap<>();
 
-    public AssertingException(String formula, String message) {
-        super("Cannot validate " + formula + " \r\n -- counter example -- \r\n" + message);
-    }
-
     public AssertingException(String formula, String message, String validModel) {
         super("Cannot validate " + formula + " \r\n -- counter example -- \r\n" + message);
         this.validModel = validModel;

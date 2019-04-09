@@ -21,14 +21,16 @@ public class MarkTime extends SearchTimeConstraint {
 		if(Options.isTimeEnabled())
 			CheckExpression.checkRE(stm,env);
 
-		stm.visit(new DefaultASTVisitor(){
-			@Override
-			public void enterASTMethodCall(ASTMethodCall elm) {
-				if(elm.getClassPointed() != null && elm.getClassPointed().equals("at.aau.asserting.AssertLibrary")){
-					elm.addVar(env);
+		if(stm != null) {
+			stm.visit(new DefaultASTVisitor() {
+				@Override
+				public void enterASTMethodCall(ASTMethodCall elm) {
+					if (elm.getClassPointed() != null && elm.getClassPointed().equals("at.aau.asserting.AssertLibrary")) {
+						elm.addVar(env);
+					}
 				}
-			}
-		});
+			});
+		}
 	}
 
 

@@ -21,6 +21,7 @@ public class MethodModel {
         if (this == o) return true;
         if (!(o instanceof MethodModel)) return false;
         MethodModel that = (MethodModel) o;
+        if(!Objects.equals(method, that.method)) return false;
         return Objects.equals(model, that.model);
         //&& Objects.equals(_assertion, that._assertion);
     }

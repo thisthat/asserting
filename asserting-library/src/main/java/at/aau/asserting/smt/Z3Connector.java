@@ -86,7 +86,7 @@ public class Z3Connector {
                         String counter = result.substring(3);
                         String goodModel = validModel(formula);
                         //System.out.println(goodModel);
-                        throw new AssertingException(formula.pretty(), counter);
+                        throw new AssertingException(formula.pretty(), counter, goodModel);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -113,7 +113,14 @@ public class Z3Connector {
     }
 
     private String validModel(Formula f){
-        String m = this.model + f.noQuantifier().prepare(false);
+        String m = this.model;
+        for(String v : f.getVar()){
+            m += "(assert (< " + v + " over_max_val))\n";
+        }
+        m += f.noQuantifier().prepare(false);
+        if(Options.isVerbose()){
+            System.out.println(m);
+        }
         String valid = "";
         try {
             valid = run(createTmpFile(m));
