@@ -40,4 +40,8 @@ public abstract class Formula {
     public abstract Formula noQuantifier();
 
     public abstract List<String> getVar();
+
+    public boolean validVar(String v){
+        return !Character.isDigit(v.charAt(0)) && v.charAt(0) != '-';
+    }
 }

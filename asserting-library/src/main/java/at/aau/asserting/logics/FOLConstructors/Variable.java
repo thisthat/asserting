@@ -30,7 +30,8 @@ public class Variable extends Formula {
     @Override
     public List<String> getVar() {
         List<String> out = new ArrayList<>();
-        out.add(var);
+        if(validVar(var))
+            out.add(var);
         return out;
     }
 }

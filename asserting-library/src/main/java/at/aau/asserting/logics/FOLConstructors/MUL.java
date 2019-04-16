@@ -5,23 +5,22 @@ import at.aau.asserting.Formula;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Const extends Formula {
-    String var;
+public class MUL extends Formula {
+    Formula lhs;
+    Formula rhs;
 
-    public Const(String v) {
-        this.var = v;
-    }
-    public Const(Number v) {
-        this.var = v + "";
+    public MUL(Formula lhs, Formula rhs) {
+        this.lhs = lhs;
+        this.rhs = rhs;
     }
 
     public String print() {
-        return var;
+        return String.format("(* %s %s)", this.lhs.print(), this.rhs.print());
     }
 
     @Override
     public Formula negate() {
-        return this;
+        return new MUL( this.lhs.negate(), this.rhs.negate() );
     }
 
     @Override
@@ -32,8 +31,8 @@ public class Const extends Formula {
     @Override
     public List<String> getVar() {
         List<String> out = new ArrayList<>();
-        if(validVar(var))
-            out.add(var);
+        out.addAll(lhs.getVar());
+        out.addAll(rhs.getVar());
         return out;
     }
 }

@@ -179,5 +179,120 @@ public class FOL {
     }
 
 
+    /****************************
+     * NUMBERS
+     */
+
+    public static PLUS PLUS(Formula lhs, Formula rhs){
+        return new PLUS(lhs, rhs);
+    }
+    public static PLUS PLUS(Formula lhs, String rhs){
+        return new PLUS(lhs, new Variable(rhs));
+    }
+    public static PLUS PLUS(String lhs, Formula rhs){
+        return new PLUS(new Variable(lhs), rhs);
+    }
+    public static PLUS PLUS(String lhs, String rhs){
+        return new PLUS(new Variable(lhs), new Variable(rhs));
+    }
+    public static PLUS PLUS(Formula lhs, Number rhs){
+        return new PLUS(lhs, new Const(rhs));
+    }
+    public static PLUS PLUS(Number lhs, Formula rhs){
+        return new PLUS(new Const(lhs), rhs);
+    }
+    public static PLUS PLUS(Number lhs, Number rhs){
+        return new PLUS(new Const(lhs), new Const(rhs));
+    }
+    public static PLUS PLUS(String lhs, Number rhs){
+        return new PLUS(new Variable(lhs), new Const(rhs));
+    }
+    public static PLUS PLUS(Number lhs, String rhs){
+        return new PLUS(new Const(lhs), new Variable(rhs));
+    }
+
+    public static MINUS MINUS(Formula lhs, Formula rhs){
+        return new MINUS(lhs, rhs);
+    }
+    public static MINUS MINUS(Formula lhs, String rhs){
+        return new MINUS(lhs, new Variable(rhs));
+    }
+    public static MINUS MINUS(String lhs, Formula rhs){
+        return new MINUS(new Variable(lhs), rhs);
+    }
+    public static MINUS MINUS(String lhs, String rhs){
+        return new MINUS(new Variable(lhs), new Variable(rhs));
+    }
+    public static MINUS MINUS(Formula lhs, Number rhs){
+        return new MINUS(lhs, new Const(rhs));
+    }
+    public static MINUS MINUS(Number lhs, Formula rhs){
+        return new MINUS(new Const(lhs), rhs);
+    }
+    public static MINUS MINUS(Number lhs, Number rhs){
+        return new MINUS(new Const(lhs), new Const(rhs));
+    }
+    public static MINUS MINUS(String lhs, Number rhs){
+        return new MINUS(new Variable(lhs), new Const(rhs));
+    }
+    public static MINUS MINUS(Number lhs, String rhs){
+        return new MINUS(new Const(lhs), new Variable(rhs));
+    }
+
+    public static MUL MUL(Formula lhs, Formula rhs){
+        return new MUL(lhs, rhs);
+    }
+    public static MUL MUL(Formula lhs, String rhs){
+        return new MUL(lhs, new Variable(rhs));
+    }
+    public static MUL MUL(String lhs, Formula rhs){
+        return new MUL(new Variable(lhs), rhs);
+    }
+    public static MUL MUL(String lhs, String rhs){
+        return new MUL(new Variable(lhs), new Variable(rhs));
+    }
+    public static MUL MUL(Formula lhs, Number rhs){
+        return new MUL(lhs, new Const(rhs));
+    }
+    public static MUL MUL(Number lhs, Formula rhs){
+        return new MUL(new Const(lhs), rhs);
+    }
+    public static MUL MUL(Number lhs, Number rhs){
+        return new MUL(new Const(lhs), new Const(rhs));
+    }
+    public static MUL MUL(String lhs, Number rhs){
+        return new MUL(new Variable(lhs), new Const(rhs));
+    }
+    public static MUL MUL(Number lhs, String rhs){
+        return new MUL(new Const(lhs), new Variable(rhs));
+    }
+
+    public static DIV DIV(Formula lhs, Formula rhs){
+        return new DIV(lhs, rhs);
+    }
+    public static DIV DIV(Formula lhs, String rhs){
+        return new DIV(lhs, new Variable(rhs));
+    }
+    public static DIV DIV(String lhs, Formula rhs){
+        return new DIV(new Variable(lhs), rhs);
+    }
+    public static DIV DIV(String lhs, String rhs){
+        return new DIV(new Variable(lhs), new Variable(rhs));
+    }
+    public static DIV DIV(Formula lhs, Number rhs){
+        return new DIV(lhs, new Const(rhs));
+    }
+    public static DIV DIV(Number lhs, Formula rhs){
+        return new DIV(new Const(lhs), rhs);
+    }
+    public static DIV DIV(Number lhs, Number rhs){
+        return new DIV(new Const(lhs), new Const(rhs));
+    }
+    public static DIV DIV(String lhs, Number rhs){
+        return new DIV(new Variable(lhs), new Const(rhs));
+    }
+    public static DIV DIV(Number lhs, String rhs){
+        return new DIV(new Const(lhs), new Variable(rhs));
+    }
 
 }

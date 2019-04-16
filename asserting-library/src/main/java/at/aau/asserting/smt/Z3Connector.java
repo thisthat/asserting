@@ -23,7 +23,14 @@ public class Z3Connector {
     }
 
     public void check(Formula formula){
-        String fed = this.model + formula.prepare();
+        String model = this.model;
+        for(String v : formula.getVar()){
+            String decl = "(declare-fun " + v;
+            if(!model.contains(decl)){
+                model += "(declare-fun " + v + " () Int)\n";
+            }
+        }
+        String fed = model + formula.prepare();
         String counter = null;
         try {
             counter = run(createTmpFile(fed));
@@ -115,6 +122,10 @@ public class Z3Connector {
     private String validModel(Formula f){
         String m = this.model;
         for(String v : f.getVar()){
+            String decl = "(declare-fun " + v;
+            if(!m.contains(decl)){
+                m += "(declare-fun " + v + " () Int)";
+            }
             m += "(assert (< " + v + " over_max_val))\n";
         }
         m += f.noQuantifier().prepare(false);

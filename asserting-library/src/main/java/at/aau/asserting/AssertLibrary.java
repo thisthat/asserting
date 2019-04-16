@@ -35,7 +35,21 @@ public class AssertLibrary {
 
     private static String getModelName() {
         StackTraceElement ste = Thread.currentThread().getStackTrace()[3];
-        return ste.getClassName() + "_" + ste.getMethodName() + "_" + ste.getLineNumber() + ".smt";
+        return ste.getClassName() + "_" + polish(ste.getMethodName(), ste) + "_" + ste.getLineNumber() + ".smt";
+    }
+
+    private static String polish(String methodName, StackTraceElement ste) {
+        if(methodName.equals("<init>")){
+            String classname = ste.getClassName();
+            if(classname.contains(".")){
+                classname = classname.substring(classname.lastIndexOf(".")+1);
+            }
+            if (classname.contains("$")) {
+                classname = classname.substring(classname.lastIndexOf("$")+1);
+            }
+            return classname;
+        }
+        return methodName;
     }
 
     private static String getCaller(){
@@ -79,7 +93,7 @@ public class AssertLibrary {
     private static String loadModel(String modelName){
         try {
             InputStream s = AssertLibrary.class.getClassLoader().getResourceAsStream(modelName);
-            return IOUtils.toString(s, Charset.defaultCharset());
+            return IOUtils.toString(s, Charset.defaultCharset().name());
         } catch (Exception ex){
             System.err.println("File " + modelName + " not found!");
         }

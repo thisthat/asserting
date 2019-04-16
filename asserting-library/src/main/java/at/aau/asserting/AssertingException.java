@@ -26,6 +26,9 @@ public class AssertingException extends RuntimeException {
         String endLine = ")\n";
         int init = model.indexOf(initModel) + initModel.length();
         String vars = model.substring(init);
+        if(vars.contains("model is not available")){
+            return;
+        }
         boolean more;
         do {
             int s = vars.indexOf(initVar) + initVar.length();

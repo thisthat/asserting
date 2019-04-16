@@ -135,6 +135,7 @@ public class ApplyHeuristics extends ParseIM {
 		}
 	}
 
+	long counterFresh = 0;
 	private void storeTimeAttr(ASTClass c, IASTVar v, Env env) {
 		if(!timeAttrs.containsKey(c)){
 			timeAttrs.put(c, new ArrayList<>());
@@ -145,7 +146,7 @@ public class ApplyHeuristics extends ParseIM {
 				return;
 			}
 			ASTAttribute a = (ASTAttribute) v;
-			e = new ASTRE(a.getStart(), a.getEnd(), new ASTLiteral(a.getStart(), a.getEnd(), "1"));
+			e = new ASTRE(a.getStart(), a.getEnd(), new ASTLiteral(a.getStart(), a.getEnd(), "freshVal"+ counterFresh++));
 		}
 		if(e == null)
 			return;

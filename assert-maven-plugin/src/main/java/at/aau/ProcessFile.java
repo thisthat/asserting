@@ -58,6 +58,9 @@ public class ProcessFile {
         log.debug(basedir);
         List<CorrectionPoint> correctionPoint = new ArrayList<>();
         for(ASTClass c : cs){
+            if(c.getName().contains("WorkerThread")){
+                System.out.println("BRK");
+            }
             ClassAnalyzer ca = new ClassAnalyzer(c);
             ca.setGetModel(true);
             try {

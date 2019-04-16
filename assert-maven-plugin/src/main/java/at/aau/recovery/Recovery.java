@@ -44,6 +44,7 @@ public class Recovery {
                 //edit
                 StringBuilder sb = new StringBuilder();
                 for(String v : c.getVars()){
+                    if(v.equals("time")) continue;
                     sb.append(v).append(" = assertingException.aCorrectValueFor(\"").append(sanitize(v)).append("\",")
                         .append(v).append(");\n");
                 }
