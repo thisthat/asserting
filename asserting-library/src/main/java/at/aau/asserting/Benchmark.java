@@ -43,8 +43,8 @@ public class Benchmark {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		long durationRecovery = startRecovery - endRecovery;
-		long durationApproach = startApproach - endApproach;
+		long durationRecovery = endRecovery - startRecovery ;
+		long durationApproach = endApproach - startApproach;
 		String data = String.format("%d,%d,%d,%d,%d,%d,%d", id,
 			startApproach, endApproach, durationApproach,
 			startRecovery, endRecovery, durationRecovery
