@@ -9,12 +9,12 @@ import org.apache.commons.io.IOUtils;
 
 public class AssertLibrary {
     public static void assertFormula(Formula f){
-        if(Options.isVerbose())
-            System.out.println("Check formula --- " + f.toString());
         String caller = getCaller();
         if(!passFilters(caller)){
             return;
         }
+        if(Options.isVerbose())
+            System.out.println("Check formula --- " + f.toString());
         Benchmark.startApproach();
         if(Options.isVerbose())
             System.err.println("Processing --- " + f.toString());
