@@ -1,5 +1,6 @@
 package at.aau.asserting;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -37,6 +38,11 @@ public class Benchmark {
 		if(!enable) return;
 		String path = System.getProperty("user.home") + "/dataset.csv";
 		Path file = Paths.get(path);
+		try {
+			new File(file.toAbsolutePath().toString()).createNewFile();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		long durationRecovery = startRecovery - endRecovery;
 		long durationApproach = startApproach - endApproach;
 		String data = String.format("%d,%d,%d,%d,%d,%d,%d", id,
