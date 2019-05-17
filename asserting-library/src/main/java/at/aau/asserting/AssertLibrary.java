@@ -15,6 +15,7 @@ public class AssertLibrary {
         if(!passFilters(caller)){
             return;
         }
+        Benchmark.startApproach();
         if(Options.isVerbose())
             System.err.println("Processing --- " + f.toString());
 
@@ -30,7 +31,12 @@ public class AssertLibrary {
             return;
         }
         Z3Connector z3 = new Z3Connector(model);
-        z3.check(f);
+        try{
+            z3.check(f);
+        } finally {
+            //Benchmark.endApproach();
+            Benchmark.write();
+        }
     }
 
     private static String getModelName() {

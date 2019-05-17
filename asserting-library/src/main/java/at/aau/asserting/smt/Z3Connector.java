@@ -1,6 +1,7 @@
 package at.aau.asserting.smt;
 
 import at.aau.asserting.AssertingException;
+import at.aau.asserting.Benchmark;
 import at.aau.asserting.Formula;
 import at.aau.asserting.Options;
 import org.apache.commons.io.FileUtils;
@@ -44,10 +45,13 @@ public class Z3Connector {
     private void checkResult(String result, Formula formula) {
         //System.out.println("Result: " + result.substring(0, result.indexOf('\n') > 0 ? result.indexOf('/') : result.length()));
         if(result.startsWith("sat")){
+            Benchmark.startRecovery();
             String counter = result.substring(3);
             String goodModel = validModel(formula);
             //System.out.println(goodModel);
-            throw new AssertingException(formula.pretty(), counter, goodModel);
+            AssertingException assertionViolation = new AssertingException(formula.pretty(), counter, goodModel);
+            Benchmark.termination();
+            throw assertionViolation;
         } else {
             //check overflows
             String f = this.model + formula.prepare(false);
@@ -90,10 +94,13 @@ public class Z3Connector {
                 try {
                     result = run(createTmpFile(newModel.toString()));
                     if(result.startsWith("sat")){
+                        Benchmark.startRecovery();
                         String counter = result.substring(3);
                         String goodModel = validModel(formula);
                         //System.out.println(goodModel);
-                        throw new AssertingException(formula.pretty(), counter, goodModel);
+                        AssertingException ex = new AssertingException(formula.pretty(), counter, goodModel);
+                        Benchmark.termination();
+                        throw ex;
                     }
                 } catch (IOException e) {
                     e.printStackTrace();

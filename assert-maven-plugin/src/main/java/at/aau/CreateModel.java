@@ -107,6 +107,12 @@ public class CreateModel
     private boolean verbose;
 
     /**
+     * Boolean for invalidate cache
+     */
+    @Parameter(defaultValue = "false", property = "verbose", required = true)
+    private boolean invalidateCache;
+
+    /**
      * A specific <code>fileSet</code> rule to select files and directories.
      * Fileset spec: https://maven.apache.org/shared/file-management/fileset.html
      */
@@ -163,7 +169,8 @@ public class CreateModel
                     }
                     if(count > 0) {
                         getLog().info("Nothing to compile -- models already present");
-                        return;
+                        if(!invalidateCache)
+                            return;
                     }
                 }
             }

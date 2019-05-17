@@ -46,7 +46,7 @@ public class Recovery {
                 for(String v : c.getVars()){
                     if(v.equals("time")) continue;
                     sb.append(v).append(" = assertingException.aCorrectValueFor(\"").append(sanitize(v)).append("\",")
-                        .append(v).append(");\n");
+                        .append(v).append("); ");
                 }
 
                 //writing
@@ -56,9 +56,9 @@ public class Recovery {
                     writer.write(init);
                     writer.write("try {  ");
                     writer.write(edit);
-                    writer.write("\n} catch (at.aau.asserting.AssertingException assertingException) {\n");
+                    writer.write("} catch (at.aau.asserting.AssertingException assertingException) { ");
                     writer.write(sb.toString());
-                    writer.write("}\n");
+                    writer.write(" }");
                     writer.write(end);
                     writer.flush();
                 }

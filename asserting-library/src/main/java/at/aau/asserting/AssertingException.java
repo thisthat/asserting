@@ -71,4 +71,18 @@ public class AssertingException extends RuntimeException {
         } catch (Exception e){ o = Long.MAX_VALUE; }
         return o;
     }
+    public float aCorrectValueFor(String var, float v) {
+        int o;
+        try {
+            o = Integer.parseInt(getCorrectValue(var));
+        } catch (Exception e){ o =  Integer.MAX_VALUE; }
+        return (float)o;
+    }
+    public double aCorrectValueFor(String var, double v) {
+        long o;
+        try {
+            o = Long.parseLong(getCorrectValue(var));
+        } catch (Exception e){ o =  Integer.MAX_VALUE; }
+        return (double)o;
+    }
 }
